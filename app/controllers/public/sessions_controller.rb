@@ -8,10 +8,21 @@ class Public::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  # ログイン時にフラッシュメッセージを表示
+  def create
+    if params.dig(:user, :email).blank? && params.dig(:user, :password).blank?
+      flash[:alert] = "Eメールまたはパスワードが空欄です"
+      redirect_to new_user_session_path
+    elsif params.dig(:user, :email).blank?
+      flash[:alert] = "Eメールが空欄です"
+      redirect_to new_user_session_path
+    elsif params.dig(:user, :password).blank?
+      flash[:alert] = "パスワードが空欄です"
+      redirect_to new_user_session_path
+    else
+      super
+    end
+  end
 
   # DELETE /resource/sign_out
   # def destroy

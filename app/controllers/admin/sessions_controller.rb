@@ -9,10 +9,21 @@ class Admin::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  # 管理者ログイン時にフラッシュメッセージを表示
+  def create
+    if params.dig(:admin, :email).blank? && params.dig(:admin, :password).blank?
+      flash[:alert] = "Eメールまたはパスワードが空欄です"
+      redirect_to new_admin_session_path
+    elsif params.dig(:admin, :email).blank?
+      flash[:alert] = "Eメールが空欄です"
+      redirect_to new_admin_session_path
+    elsif params.dig(:admin, :password).blank?
+      flash[:alert] = "パスワードが空欄です"
+      redirect_to new_admin_session_path
+    else
+      super
+    end
+  end
 
   # DELETE /resource/sign_out
   # def destroy
