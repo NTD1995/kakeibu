@@ -6,7 +6,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
-          # ユーザーログイン時のヘッダー
+          <%# ユーザーログイン時のヘッダー %>
           <% if user_signed_in? && !admin_signed_in? %>
             <li>
               <%= link_to root_path, class:"nav-link text-light" do%>
@@ -35,7 +35,7 @@
               <% end %>
             </li> 
 
-          # 管理者ログイン時のヘッダー
+          <%# 管理者ログイン時のヘッダー %>
           <% elsif admin_signed_in? %>          
             <li>
               <%= link_to root_path, class:"nav-link text-light" do%>
@@ -55,12 +55,12 @@
               <i class="fa-solid fa-list"></i> 項目一覧・新規追加
             </li>             
             <li>
-              <%= link_to destroy_user_session_path, method: :delete, class:"nav-link text-light" do%>            
+              <%= link_to destroy_admin_session_path, method: :delete, class:"nav-link text-light" do%>            
                 <i class="fa-solid fa-right-from-bracket"></i> ログアウト
               <% end %>  
             </li> 
 
-          # ユーザー非ログイン時のヘッダー
+          <%# ユーザー非ログイン時のヘッダー %>
           <% else %>
             <li>
               <%= link_to root_path, class:"nav-link text-light" do%>
@@ -88,7 +88,7 @@
           </ul>
         <% end %>
 
-        # 検索フォーム表示 
+        <%# 検索フォーム表示 %> 
         <div class="search_form">
           <%= form_with url: "#" do |form| %>
             <%= form.text_field :keyword, placeholder: "search" %>
@@ -96,7 +96,7 @@
           <% end %>
         </div>
 
-        # タグ検索フォーム表示 
+        <%# タグ検索フォーム表示 %> 
         <div class="search_form">
           <%= form_with url: "#" do |form| %>
             <%= form.text_field :keyword, placeholder: "search" %>
