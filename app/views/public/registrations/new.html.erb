@@ -14,8 +14,11 @@
           <tbody>
             <tr>
               <th><%= f.label :name, "名前" %></th>
-              <td><%= f.text_field :name, autofocus: true, class: "form-control", placeholder: "a", style: "width: 200px;" %></td>
-            </tr>            
+              <td><%= f.text_field :name, autofocus: true, class: "form-control", placeholder: "a", style: "width: 200px;" %></td>              
+            </tr>
+            <tr>
+              <th><%= f.label :introduction, "自己紹介文" %></th>
+              <td><%= f.text_field :introduction, autofocus: true, class: "form-control", placeholder: "あなたの自己紹介を書いてください", style: "width: 200px;" %></td>                       
             </tr>
             <tr>
               <th><%= f.label :email, "メールアドレス" %></th>
