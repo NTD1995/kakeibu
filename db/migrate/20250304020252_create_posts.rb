@@ -5,7 +5,7 @@ class CreatePosts < ActiveRecord::Migration[6.1]
       t.references :item, null: false, foreign_key: true
       t.string :content,   null: false
       t.integer :price,   null: false
-      t.text :memo,       null: false
+      t.text :memo
       t.timestamps
     end
   end

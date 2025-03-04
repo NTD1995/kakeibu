@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     sessions: 'public/sessions'
   }
   # 投稿
-  resources :posrs, controller: 'public/items', only: [:new, :index, :show, :edit]
+  resources :posts, controller: 'public/posts', only: [:new, :index, :show, :edit, :create]
 
 
   # 管理者側

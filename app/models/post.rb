@@ -3,7 +3,10 @@ class Post < ApplicationRecord
   belongs_to :item
 
   # カラムが空でないこと
+  validates :created_at, presence: true
   validates :content, presence: true
-  # カラムが数値であり、0以上の値であること
-  validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  # カラムが数値であること
+  validates :price, presence: true, numericality: true
+  # 収支区分が収入または支出であること
+  validates :category, presence: true, inclusion: { in: ["income", "expense"] }
 end
