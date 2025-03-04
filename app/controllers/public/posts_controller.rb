@@ -1,7 +1,9 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_user!
 
+  # 投稿一覧画面
   def index
+    @posts = Post.all.includes(:item).page(params[:page])
   end
 
   # 新規投稿画面

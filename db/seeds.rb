@@ -8,3 +8,4 @@
 
 User.create(email: "aa@aa", password: "aaaaaa", name: "aa", introduction: "よろしくお願いします", is_active: "true")
 Admin.create(email: "admin@admin",password: "aaaaaa")
+Item.create([{ name: "食費" }, { name: "給料" }])
