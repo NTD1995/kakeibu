@@ -24,7 +24,9 @@ class Public::PostsController < ApplicationController
     end    
   end
 
+  # 投稿詳細画面
   def show
+    @post = Post.find(params[:id])
   end
 
   def edit
