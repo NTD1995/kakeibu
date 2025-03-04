@@ -29,10 +29,22 @@ class Public::PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
+  # 投稿編集画面
   def edit
+    @post = Post.find(params[:id])
+    @items = Item.all
   end
 
+  # 投稿編集処理
   def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to post_path, notice: "投稿が更新されました。"
+    else
+      @items = Item.all
+      flash.now[:alert] = "投稿が更新されませんでした。"
+      render :edit
+    end
   end
 
   def destroy
@@ -41,6 +53,6 @@ class Public::PostsController < ApplicationController
   private
 
     def post_params
-    params.require(:post).permit(:created_at, :content, :category, :price, :item_id, :memo)
+    params.require(:post).permit(:created_at, :content, :category, :price, :item_id, :memo, :user_id)
   end
 end
