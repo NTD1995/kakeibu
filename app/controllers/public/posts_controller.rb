@@ -1,5 +1,7 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_user!, only: [:show, :edit, :update, :destroy]
 
   # 投稿一覧画面
   def index
@@ -16,7 +18,7 @@ class Public::PostsController < ApplicationController
   def create
     @post = Post.new(post_params.merge(user_id: current_user.id))
     if @post.save
-      redirect_to posts_path(@post), notice: "投稿に成功しました"
+      redirect_to posts_path(@post), notice: "投稿に成功しました。"
     else
       @items = Item.all
       flash.now[:alert] = "投稿に失敗しました。"
@@ -51,12 +53,25 @@ class Public::PostsController < ApplicationController
   def destroy
    @post = Post.find(params[:id])
    @post.destroy
-   redirect_to posts_path, notice: "投稿を削除しました"    
+   redirect_to posts_path, alert: "投稿を削除しました。"    
   end
 
   private
 
+    # ユーザーから送信されたデータのうち許可した項目のみを取得
     def post_params
-    params.require(:post).permit(:created_at, :content, :category, :price, :item_id, :memo, :user_id)
-  end
+      params.require(:post).permit(:created_at, :content, :category, :price, :item_id, :memo, :user_id)
+    end
+
+    # 各アクション内で投稿情報を使用
+    def set_post
+      @post = Post.find(params[:id])
+    end
+    
+    # 現在ログインしているユーザーがその投稿の所有者でなければ、編集や更新や削除ができないように制限
+    def authorize_user!
+      unless @post.user == current_user
+        redirect_to posts_path, alert: "この投稿を編集・更新・削除する権限がありません。"
+      end
+    end
 end
