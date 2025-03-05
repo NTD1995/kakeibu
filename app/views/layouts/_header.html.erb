@@ -13,8 +13,10 @@
                 <i class="fa-solid fa-house"></i> ホーム
               <% end %>
             </li>  
-            <li>         
+            <li>
+              <%= link_to mypage_path, class:"nav-link text-light" do%>                     
                 <i class="fa-regular fa-user"></i> マイページ
+              <% end %>  
             </li>             
             <li>
               <%= link_to posts_path, class:"nav-link text-light" do%>

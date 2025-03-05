@@ -9,13 +9,13 @@ Rails.application.routes.draw do
     sessions: 'public/sessions'
   }
   # マイページ
-  get 'mypage', to: 'public/users#mypage', as: 'mypage'
+  get "mypage", to: "public/users#mypage", as: "mypage"
   # ユーザー一覧、詳細、編集、更新、退会
-  resources :users, only: [:index, :show, :edit, :update, :destroy] do
+  resources :users, controller: "public/users", only: [:index, :show, :edit, :update, :destroy] do
     # フォロー、フォロワー
     resource :relationships, only: [:create, :destroy]
-      get "followers" => "relationships#followers", as: "followers"
-  	  get "followeds" => "relationships#followeds", as: "followeds"
+      get "followers", to: "public/relationships#followers", as: "followers"
+  	  get "followeds", to: "public/relationships#followeds", as: "followeds"
   end
   # 投稿
   resources :posts, controller: 'public/posts'

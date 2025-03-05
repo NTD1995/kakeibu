@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_one_attached :image
 
   # バリデーション設定
+  validates :image, presence: true  
   validates :name, presence: true
   validates :introduction, presence: true   
 end
