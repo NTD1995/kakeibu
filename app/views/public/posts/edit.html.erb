@@ -72,7 +72,7 @@
             <% if @post.user == current_user %>          
               <%= link_to "投稿詳細に戻る", post_path(@post), class: "btn btn-primary mr-2" %>
               <%= f.submit "投稿を更新", class: "btn btn-success mr-2" %>
-              <%= link_to "削除する", post_path(@post), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-danger" %>
+              <%= link_to "削除する", post_path(@post), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
             <% end %>  
           </div>
         </div>

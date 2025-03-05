@@ -1,13 +1,19 @@
-<div class="container">
-  <div class="row">
-    <div class="mx-auto col-11 col-sm-10 col-lg-8 col-xl-6">
-      <h1>ようこそ<i class="fa-solid fa-pen"></i><strong>Kakeibo_sns</strong> !!</h1>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="row w-100">
+    <div class="mx-auto col-11 col-sm-10 col-lg-8 col-xl-6 text-center">
+      <h1 class="mb-4">ようこそ <i class="fa-solid fa-pen"></i> <strong>Kakeibo_sns</strong> !!</h1>
       <div class="btn-wrapper col-10 mx-auto">
-        <div class="row">
-          <%= button_tag "ログイン", class: "btn btn-info btn-sm btn-block mb-3" %>
-        </div>
-        <div class="row">
-          <%= button_tag "新規登録", class: "btn btn-success btn-sm btn-block" %>
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-6 mb-3">
+            <%= link_to new_user_registration_path, class: "btn btn-success w-100", style: "padding: 10px 20px;" do %>
+              <i class="fa-solid fa-user-plus"></i> 新規登録
+            <% end %>
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <%= link_to new_user_session_path, class: "btn btn-primary w-100", style: "padding: 10px 20px;" do %>
+              <i class="fa-solid fa-right-to-bracket"></i> ログイン
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
