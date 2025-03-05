@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
+  # モデル間の関連付け  
   belongs_to :user
   belongs_to :item
 

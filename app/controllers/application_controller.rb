@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
     when Admin
       admin_top_path
     when User
-      root_path
+      mypage_path
     else
       root_path
     end

@@ -8,11 +8,10 @@ Rails.application.routes.draw do
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
-  # ユーザー一覧、詳細、編集、更新、退会、マイページ
+  # マイページ
+  get 'mypage', to: 'public/users#mypage', as: 'mypage'
+  # ユーザー一覧、詳細、編集、更新、退会
   resources :users, only: [:index, :show, :edit, :update, :destroy] do
-    collection do
-      get 'mypage'
-    end
     # フォロー、フォロワー
     resource :relationships, only: [:create, :destroy]
       get "followers" => "relationships#followers", as: "followers"
