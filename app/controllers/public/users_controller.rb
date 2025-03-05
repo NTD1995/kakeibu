@@ -8,6 +8,8 @@ class Public::UsersController < ApplicationController
   end
 
   def index
+    @user = current_user
+    @users = User.all.page(params[:page])    
   end  
 
   def show
