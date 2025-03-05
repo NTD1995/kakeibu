@@ -14,12 +14,12 @@ class Public::UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = current_user
 
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = current_user
     if @user.update(user_params)
       redirect_to user_path(@user), notice: "ユーザー情報を更新しました。"
     else
@@ -29,6 +29,10 @@ class Public::UsersController < ApplicationController
   end
 
   def destroy
+    @user = current_user
+    @user.update(is_active: false)
+    sign_out(@user)
+    redirect_to new_user_registration_path, notice: "退会しました。"
   end
 
   def followers

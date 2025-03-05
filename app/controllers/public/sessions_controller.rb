@@ -2,6 +2,7 @@
 
 class Public::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
+  before_action :user_state, only: [:create]  
 
   # GET /resource/sign_in
   # def new
@@ -30,6 +31,24 @@ class Public::SessionsController < Devise::SessionsController
   # end
 
   # protected
+
+private
+
+  # ユーザーステータスがアクティブであるかを判断するメソッド
+  def user_state
+    # 入力されたemailからアカウントを1件取得
+    user = User.find_by(email: params[:user][:email])
+    # アカウントを取得できなかった場合、このメソッドを終了する
+    return if user.nil?
+    # 取得したアカウントのパスワードと入力されたパスワードが一致していない場合、このメソッドを終了する
+    return unless user.valid_password?(params[:user][:password])
+    # アクティブでないユーザーに対する処理
+    unless user.active?
+      flash[:alert] = "あなたは退会済みです。再度新規登録をお願いします。"
+      redirect_to new_user_registration_path
+      return
+    end
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_in_params

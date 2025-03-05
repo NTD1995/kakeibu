@@ -11,5 +11,10 @@ class User < ApplicationRecord
   # バリデーション設定
   validates :image, presence: true  
   validates :name, presence: true
-  validates :introduction, presence: true   
+  validates :introduction, presence: true  
+  
+  # ユーザーが退会していないか確認
+  def active?
+    self.is_active
+  end
 end
