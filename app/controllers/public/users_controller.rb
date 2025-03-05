@@ -13,11 +13,12 @@ class Public::UsersController < ApplicationController
   end  
 
   def show
+    @user = User.find(params[:id])
+    @user_posts = @user.posts.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def edit
     @user = current_user
-
   end
 
   def update
