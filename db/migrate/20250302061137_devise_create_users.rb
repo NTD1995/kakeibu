@@ -33,8 +33,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       # t.datetime :locked_at
 
       # add user column for kakeibo_sns
-      t.string     :name,           null: false, default: ""
-      t.text       :introduction,   null: false, default: ""
+      t.string     :name,           null: false
+      t.text       :introduction,   null: false
       t.boolean    :is_active,      null: false, default: true
       t.timestamps                  null: false
     end
