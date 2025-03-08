@@ -82,6 +82,6 @@ class Public::RegistrationsController < Devise::RegistrationsController
 
     # 新規登録後に遷移したいページを指定
   def after_sign_up_path_for(resource)
-    root_path
+    mypage_path
   end
 end
