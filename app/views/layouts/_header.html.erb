@@ -41,6 +41,10 @@
                 <i class="fa-solid fa-right-from-bracket"></i> ログアウト
               <% end %>
             </li> 
+            <li>
+              <%# 検索フォーム表示 %> 
+              <%= render 'searches/form' %>           
+            </li>
 
           <%# 管理者ログイン時のヘッダー %>
           <% elsif admin_signed_in? %>          
@@ -100,14 +104,6 @@
             </li> 
           </ul>
         <% end %>
-
-        <%# 検索フォーム表示 %> 
-        <div class="search_form">
-          <%= form_with url: "#" do |form| %>
-            <%= form.text_field :keyword, placeholder: "search" %>
-            <i class="fa-solid fa-magnifying-glass"></i>
-          <% end %>
-        </div>
 
         <%# タグ検索フォーム表示 %> 
         <div class="search_form">

@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row" style="margin: 20px;">
+    <div class="col-lg-12">
+      <% if @model == 'user' %>
+        <h4><strong><%= @content %>の検索結果一覧</strong></h4>
+          <%= render 'public/users/index', users: @records %>
+      <% elsif @model == 'post' %>
+        <h4><strong><%= @content %>の検索結果一覧</strong></h4>
+          <%= render 'public/posts/index', posts: @records %>
+      <% end %>
+    </div>
+  </div>
+</div>
