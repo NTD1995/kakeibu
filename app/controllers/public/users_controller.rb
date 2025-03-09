@@ -7,11 +7,13 @@ class Public::UsersController < ApplicationController
     @user_posts = @user.posts.order(created_at: :desc).page(params[:page])
   end
 
+  # ユーザー一覧画面
   def index
     @user = current_user
     @users = User.all.page(params[:page])    
   end  
 
+  # ユーザー詳細画面
   def show
     @user = User.find(params[:id])
     @user_posts = @user.posts.order(created_at: :desc).page(params[:page]).per(10)
@@ -21,6 +23,7 @@ class Public::UsersController < ApplicationController
     @user = current_user
   end
 
+  # ユーザー情報更新処理
   def update
     @user = current_user
     if @user.update(user_params)
@@ -31,6 +34,7 @@ class Public::UsersController < ApplicationController
     end        
   end
 
+  # ユーザー退会処理
   def destroy
     @user = current_user
     @user.update(is_active: false)
