@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row" style="margin: 20px;">
+    <div class="col-lg-12">
+      <h5 style="margin: 0;"><strong>コメント入力欄</strong></h5>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <%= form_with(model: [post, post_comment], local: true) do |f| %>
+        <div class="form-group">
+          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここへ", class: "form-control" %>
+        </div>
+        <%= f.submit "投稿", class: "btn btn-success" %>
+      <% end %>
+    </div>
+  </div>
+</div> 

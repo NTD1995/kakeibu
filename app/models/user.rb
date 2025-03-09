@@ -7,6 +7,7 @@ class User < ApplicationRecord
   # モデル間の関連付け
   has_many :posts
   has_one_attached :image
+  has_many :post_comments, dependent: :destroy
 
   # バリデーション設定
   validates :name, presence: true
