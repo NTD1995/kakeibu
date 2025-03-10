@@ -18,11 +18,12 @@ Rails.application.routes.draw do
   	  get "followeds", to: "public/relationships#followeds", as: "followeds"
   end
   # 投稿
-  resources :posts, controller: 'public/posts' do
-    # 投稿のコメント
-    resources :post_comments, only: [:create, :destroy]
+  scope module: :public do
+    resources :posts do
+      # 投稿のコメント
+      resources :post_comments, only: [:create, :destroy]
+    end
   end
-
   # 管理者側
 
   # 管理者トップページ（投稿一覧）
