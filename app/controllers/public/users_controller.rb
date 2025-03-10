@@ -15,10 +15,11 @@ class Public::UsersController < ApplicationController
 
   # ユーザー詳細画面
   def show
-    @user = User.find(params[:id])
+    @user = current_user
     @user_posts = @user.posts.order(created_at: :desc).page(params[:page]).per(10)
   end
 
+  # ユーザー編集画面
   def edit
     @user = current_user
   end

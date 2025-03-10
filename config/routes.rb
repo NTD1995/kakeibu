@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get 'users/index'
+    get 'users/show'
+    get 'users/edit'
+    get 'users/update'
+  end
   # トップページ
   root to: "public/homes#top"
   # アバウトページ
@@ -29,6 +35,11 @@ Rails.application.routes.draw do
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
   }
+
+  namespace :admin do
+    # ユーザー一覧、詳細、編集、更新
+    resources :users,     only: [:index, :show, :edit, :update]
+  end
 
   # 検索
   get "search" => "searches#search"
