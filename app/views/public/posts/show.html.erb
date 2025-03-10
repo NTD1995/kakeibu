@@ -36,7 +36,9 @@
             </td>
             <td><%= @post.item.name %></td>
             <td><%= @post.memo %></td>
-            <td><%= @post.post_comments.count %></td>
+            <td class="post-comments-counter">
+              <%= render "public/post_comments/counter", post: @post %>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -45,8 +47,10 @@
 
   <div class="row">
     <div class="col-lg-12">
-      <%= render 'public/post_comments/index', post: @post, post_comment: @post_comment %>
-      <%= render 'public/post_comments/form', post: @post, post_comment: @post_comment %>
+      <div class="post-comments-index">
+        <%= render 'public/post_comments/index', post: @post, post_comment: @post_comment %>
+      </div>
+        <%= render 'public/post_comments/form', post: @post, post_comment: @post_comment %>
     </div>
   </div>
 
