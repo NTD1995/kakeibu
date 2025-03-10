@@ -17,6 +17,7 @@
             <th>金額</th>
             <th>項目</th>
             <th>メモ</th>
+            <th>コメント数</th>
           </tr>
         </thead>
         <tbody>
@@ -35,9 +36,21 @@
             </td>
             <td><%= @post.item.name %></td>
             <td><%= @post.memo %></td>
+            <td id="post-comments-counter">
+              <%= render "public/post_comments/counter", post: @post %>
+            </td>
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div id="post-comments-index">
+        <%= render 'public/post_comments/index', post: @post, post_comment: @post_comment %>
+      </div>
+        <%= render 'public/post_comments/form', post: @post, post_comment: @post_comment %>
     </div>
   </div>
 
