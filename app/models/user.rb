@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   # モデル間の関連付け
-  has_many :posts
+  has_many :posts, dependent: :destroy
   has_one_attached :image
 
   # バリデーション設定

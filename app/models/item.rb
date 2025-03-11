@@ -1,5 +1,5 @@
 class Item < ApplicationRecord
-  has_many :post, dependent: :destroy
+  has_many :posts, dependent: :destroy
 
   # カラムが空でないこと
   validates :name, presence: true

@@ -7,25 +7,6 @@ class Admin::PostsController < ApplicationController
     @posts = Post.all.includes(:item).page(params[:page])
   end
 
-  # 新規投稿画面
-  def new
-    @post = Post.new
-    @items = Item.all
-  end
-
-  # 新規投稿処理
-  def create
-    @post = Post.new(post_params)
-    @post.user_id = current_admin.id
-    if @post.save
-      redirect_to admin_path, notice: "投稿に成功しました。"
-    else
-      @items = Item.all
-      flash.now[:alert] = "投稿に失敗しました。"
-      render :new
-    end    
-  end
-
   # 投稿詳細画面
   def show
   end
@@ -48,6 +29,7 @@ class Admin::PostsController < ApplicationController
 
   # 投稿削除処理
   def destroy
+    #byebug
     @post.destroy
     redirect_to admin_path, alert: "投稿を削除しました。"    
   end

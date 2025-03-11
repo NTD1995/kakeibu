@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   namespace :admin do
     # ユーザー一覧、詳細、編集、更新
     resources :users, only: [:index, :show, :edit, :update]
-    resources :posts, except: [:index]     
+    resources :posts, only: [:show, :edit, :update, :destroy]     
   end
 
   # 検索
