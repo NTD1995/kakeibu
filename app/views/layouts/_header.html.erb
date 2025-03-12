@@ -67,7 +67,9 @@
               <i class="fa-solid fa-thumbs-up"></i> いいね一覧
             </li> 
             <li>
-              <i class="fa-solid fa-list"></i> 項目一覧・新規追加
+              <%= link_to admin_items_path, class:"nav-link text-light" do%>
+                <i class="fa-solid fa-list"></i> 項目一覧・新規追加
+              <% end %>  
             </li>             
             <li>
               <%= link_to destroy_admin_session_path, method: :delete, class:"nav-link text-light" do%>            

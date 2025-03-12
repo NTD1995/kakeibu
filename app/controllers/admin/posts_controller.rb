@@ -29,7 +29,6 @@ class Admin::PostsController < ApplicationController
 
   # 投稿削除処理
   def destroy
-    #byebug
     @post.destroy
     redirect_to admin_path, alert: "投稿を削除しました。"    
   end
