@@ -16,6 +16,7 @@ class Public::PostsController < ApplicationController
 
   # 新規投稿処理
   def create
+    Rails.logger.debug "Category: #{params[:post][:category]}" 
     @post = Post.new(post_params.merge(user_id: current_user.id))
     if @post.save
       redirect_to posts_path(@post), notice: "投稿に成功しました。"
@@ -60,8 +61,10 @@ class Public::PostsController < ApplicationController
 
     # ユーザーから送信されたデータのうち許可した項目のみを取得
     def post_params
-      params.require(:post).permit(:created_at, :content, :category, :price, :item_id, :memo, :user_id)
-    end
+      params.require(:post).permit(:created_at, :content, :category, :price, :item_id, :memo, :user_id).tap do |post_params|
+       post_params[:category] = post_params[:category].to_sym if post_params[:category].present?
+     end
+    end 
 
     # 各アクション内で投稿情報を使用
     def set_post

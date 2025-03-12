@@ -81,7 +81,7 @@
           <% @user.posts.each do |post| %>
             <tr>
               <td><%= post.created_at.strftime("%Y年%m月%d日") %></td>
-              <td><%= link_to post.content, post_path(post) %></td>
+              <td><%= link_to post.content, admin_post_path(post) %></td>
               <td>
                 <% price = post.category == "expense" ? "-#{post.price}" : post.price %>
                 <%= number_to_currency(price, delimiter: ",") %>

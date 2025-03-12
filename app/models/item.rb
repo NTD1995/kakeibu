@@ -3,4 +3,7 @@ class Item < ApplicationRecord
 
   # カラムが空でないこと
   validates :name, presence: true
+
+  # カラムには整数0または1が保存
+  enum category: { income: 0, expense: 1 }
 end

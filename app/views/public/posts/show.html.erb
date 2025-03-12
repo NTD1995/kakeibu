@@ -27,10 +27,10 @@
             <td><%= @post.created_at.strftime("%Y年%m月%d日") %></td>
             <td><%= @post.content %></td>
             <td>
-              <%= @post.category == "expense" ? "支出" : "収入" %>
+              <%= @post.expense? ? "支出" : "収入" %>
             </td>
             <td>
-              <% price = @post.category == "expense" ? "-#{@post.price}" : @post.price %>
+              <% price = @post.expense? ? -@post.price.to_i : @post.price.to_i %>
               <%= number_to_currency(price, delimiter: ",") %>
             </td>
             <td><%= @post.item.name %></td>

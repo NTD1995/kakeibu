@@ -4,21 +4,20 @@ class Admin::ItemsController < ApplicationController
 
   # 項目一覧画面
   def index
-    @expenses = Item.where(category: "支出")
-    @incomes = Item.where(category: "収入")
-    @new_item = Item.new(category: "支出")
+    # 固定リストとデータベースの項目を統合（重複を排除）
+    @income_items = Item.income
+    @expense_items = Item.expense
+
+    # 新しい項目のインスタンスを作成し、カテゴリー選択を表示
+    @new_item = Item.new
   end
 
   # 項目新規追加処理
   def create
     @item = Item.new(item_params)
     if @item.save
-      @expenses = Item.where(category: "支出")
-      @incomes = Item.where(category: "収入")
       redirect_to admin_items_path, notice: "項目が追加されました。"
     else
-      @expenses = Item.where(category: "支出")
-      @incomes = Item.where(category: "収入")
       flash.now[:alert] = "項目が追加されませんでした。"
       render :index
     end
