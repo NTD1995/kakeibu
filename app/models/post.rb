@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   # モデル間の関連付け  
   belongs_to :user
   belongs_to :item
+  has_many :post_comments, dependent: :destroy
 
   # カラムが空でないこと
   validates :created_at, presence: true

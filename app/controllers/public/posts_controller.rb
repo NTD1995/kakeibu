@@ -1,7 +1,7 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_user!, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   # 投稿一覧画面
   def index
@@ -30,6 +30,7 @@ class Public::PostsController < ApplicationController
   # 投稿詳細画面
   def show
     @post = Post.find(params[:id])
+    @post_comment = PostComment.new
   end
 
   # 投稿編集画面
