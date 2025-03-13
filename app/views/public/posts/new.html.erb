@@ -34,8 +34,8 @@
             <%= f.label :category, "収支区分" %>
           </div>
           <div class="col-lg-9">
-            <%= f.radio_button :category, 0 %> 収入
-            <%= f.radio_button :category, 1 %> 支出
+            <%= f.radio_button :category, :income, checked: @post.category == "income" %> 収入
+            <%= f.radio_button :category, :expense, checked: @post.category == "expense" %> 支出
           </div>
         </div>
 

@@ -24,6 +24,10 @@ Rails.application.routes.draw do
       resources :post_comments, only: [:create, :destroy]
     end
   end
+  # 検索一覧
+  get "search", to: "public/searches#search", as: "search"
+
+
   # 管理者側
 
   # 管理者トップページ（投稿一覧）
@@ -39,9 +43,9 @@ Rails.application.routes.draw do
     # 投稿詳細、編集、更新、削除
     resources :posts, only: [:show, :edit, :update, :destroy]
     # 項目一覧、追加、編集、更新、削除
-    resources :items, only: [:index, :create, :edit, :update, :destroy]     
+    resources :items, only: [:index, :create, :edit, :update, :destroy]  
+    # 検索一覧 
+    get "search", to: "searches#search", as: "search"  
   end
 
-  # 検索
-  get "search" => "searches#search"
 end
