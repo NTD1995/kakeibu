@@ -17,6 +17,16 @@
   <div class="row">
     <div class="col-lg-8">
       <div class="user-details">
+
+        <div class="row">
+          <div class="col-md-4">
+            <h6><strong>ユーザーID</strong></h6>
+          </div>
+          <div class="col-md-8">
+            <p><%= @user.id %></p>
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-md-4">
             <h6><strong>ユーザー画像</strong></h6>
@@ -71,6 +81,7 @@
       <table class="table table-bordered">
         <thead>
           <tr>
+            <th>投稿ID</th>
             <th>日付</th>
             <th>内容</th>
             <th>金額</th>
@@ -80,6 +91,7 @@
         <tbody>
           <% @user.posts.each do |post| %>
             <tr>
+              <td><%= post.id %></td>
               <td><%= post.created_at.strftime("%Y年%m月%d日") %></td>
               <td><%= link_to post.content, admin_post_path(post) %></td>
               <td>
