@@ -1,4 +1,9 @@
 ja:
+  enums:
+    item:
+      category:
+        income: "収入"
+        expense: "支出"
   activerecord:
     errors:
       messages:

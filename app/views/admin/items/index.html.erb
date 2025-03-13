@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row" style="margin: 20px;">
+    <div class="col-lg-12">
+      <h4 style="margin: 0;"><strong>項目一覧</strong></h4>
+    </div>
+  </div>
+
+  <%# 新規追加フォーム %>
+  <div class="row">
+    <div class="col-lg-12">
+      <h5><strong>新規項目追加</strong></h5>
+      <%= form_with model: @new_item, url: admin_items_path, method: :post, local: true do |form| %>
+        <div class="form-group">
+          <%= form.label :name, '項目名', class: 'font-weight-bold' %>
+          <%= form.text_field :name, class: 'form-control', placeholder: '項目名を入力', style: 'max-width: 200px;' %>
+        </div>
+        <div class="form-group">
+          <%= form.label :category, '収支区分', class: 'font-weight-bold' %>
+          <%= form.select :category, Item.categories.keys.map {|k| [I18n.t("enums.item.category.#{k}"), k]},{} ,{ class: 'form-control', style: 'width: 200px;' } %>
+        </div>
+        <%= form.submit '新規追加', class: 'btn btn-primary mt-1 mb-3' %>
+      <% end %>
+    </div>
+  </div>
+
+  <%# 支出の項目リスト %>
+  <div class="row">
+    <div class="col-lg-6">
+      <h5><strong>支出項目</strong></h5>
+      <ul class="list-group">
+        <% @expense_items.each do |item| %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <%= item.name %>
+            <%= link_to '編集する', edit_admin_item_path(item.id), class: 'btn btn-success btn-sm' %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <%# 収入の項目リスト %>
+    <div class="col-lg-6">
+      <h5><strong>収入項目</strong></h5>
+      <ul class="list-group">
+        <% @income_items.each do |item| %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <%= item.name %>
+            <%= link_to '編集する', edit_admin_item_path(item.id), class: 'btn btn-success btn-sm' %>  
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+</div>

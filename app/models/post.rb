@@ -12,6 +12,9 @@ class Post < ApplicationRecord
   # 収支区分が収入または支出であること
   validates :category, presence: true, inclusion: { in: ["income", "expense"] }
 
+  # カラムには整数0または1が保存
+  enum category: { income: 0, expense: 1 }
+
   # Postモデルのcontentカラムに対して検索
   def self.search_for(content, method)
     if method == 'perfect'

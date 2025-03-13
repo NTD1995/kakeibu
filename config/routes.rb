@@ -27,11 +27,20 @@ Rails.application.routes.draw do
   # 管理者側
 
   # 管理者トップページ（投稿一覧）
-  get "/admin", to: "admin/homes#top", as: "admin/top"
+  get "/admin", to: "admin/homes#top", as: "admin"
   # 管理者ログイン画面
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
   }
+
+  namespace :admin do
+    # ユーザー一覧、詳細、編集、更新
+    resources :users, only: [:index, :show, :edit, :update]
+    # 投稿詳細、編集、更新、削除
+    resources :posts, only: [:show, :edit, :update, :destroy]
+    # 項目一覧、追加、編集、更新、削除
+    resources :items, only: [:index, :create, :edit, :update, :destroy]     
+  end
 
   # 検索
   get "search" => "searches#search"

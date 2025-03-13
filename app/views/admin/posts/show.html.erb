@@ -10,6 +10,7 @@
       <table class="table table-bordered">
         <thead>
           <tr>
+            <th>投稿ID</th>
             <th>名前</th>
             <th>日付</th>
             <th>内容</th>
@@ -17,13 +18,13 @@
             <th>金額</th>
             <th>項目</th>
             <th>メモ</th>
-            <th>コメント数</th>
           </tr>
         </thead>
         <tbody>
           <tr>
+            <td><%= @post.id %></td>
             <td>
-              <%= @post.user.name %>
+              <%= link_to @post.user.name, admin_user_path(@post.user) %>
             </td>
             <td><%= @post.created_at.strftime("%Y年%m月%d日") %></td>
             <td><%= @post.content %></td>
@@ -36,9 +37,6 @@
             </td>
             <td><%= @post.item.name %></td>
             <td><%= @post.memo %></td>
-            <td id="post-comments-counter">
-              <%= render "public/post_comments/counter", post: @post %>
-            </td>
           </tr>
         </tbody>
       </table>
@@ -46,20 +44,9 @@
   </div>
 
   <div class="row">
-    <div class="col-lg-12">
-      <div id="post-comments-index">
-        <%= render 'public/post_comments/index', post: @post, post_comment: @post_comment %>
-      </div>
-        <%= render 'public/post_comments/form', post: @post, post_comment: @post_comment %>
-    </div>
-  </div>
-
-  <div class="row">
     <div class="col-lg-12 d-flex justify-content-center">
-      <% if @post.user == current_user %>
-        <%= link_to '投稿一覧に戻る', posts_path, class: "btn btn-primary mr-2" %>
-        <%= link_to '編集する', edit_post_path(@post), class: "btn btn-success" %>
-      <% end %>  
+        <%= link_to '投稿一覧に戻る', admin_path, class: "btn btn-primary mr-2" %>
+        <%= link_to '編集する', edit_admin_post_path(@post), class: "btn btn-success" %>
     </div>
   </div>
 
