@@ -31,7 +31,7 @@
         <% @expense_items.each do |item| %>
           <li class="list-group-item d-flex justify-content-between align-items-center">
             <%= item.name %>
-            <%= link_to '編集', edit_admin_item_path(item.id), class: 'btn btn-success btn-sm' %>
+            <%= link_to '編集する', edit_admin_item_path(item.id), class: 'btn btn-success btn-sm' %>
           </li>
         <% end %>
       </ul>
@@ -44,7 +44,7 @@
         <% @income_items.each do |item| %>
           <li class="list-group-item d-flex justify-content-between align-items-center">
             <%= item.name %>
-            <%= link_to '編集', edit_admin_item_path(item.id), class: 'btn btn-success btn-sm' %>  
+            <%= link_to '編集する', edit_admin_item_path(item.id), class: 'btn btn-success btn-sm' %>  
           </li>
         <% end %>
       </ul>

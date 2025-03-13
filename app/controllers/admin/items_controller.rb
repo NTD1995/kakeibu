@@ -4,11 +4,9 @@ class Admin::ItemsController < ApplicationController
 
   # 項目一覧画面
   def index
-    # 固定リストとデータベースの項目を統合（重複を排除）
     @income_items = Item.income
     @expense_items = Item.expense
 
-    # 新しい項目のインスタンスを作成し、カテゴリー選択を表示
     @new_item = Item.new
   end
 
