@@ -34,8 +34,8 @@
             <%= f.label :category, "収支区分" %>
           </div>
           <div class="col-lg-9">
-            <%= f.radio_button :category, 0 %> 収入
-            <%= f.radio_button :category, 1 %> 支出
+            <%= f.radio_button :category, :income, checked: @post.category == "income" %> 収入
+            <%= f.radio_button :category, :expense, checked: @post.category == "expense" %> 支出
           </div>
         </div>
 
@@ -53,8 +53,7 @@
             <%= f.label :item_id, "項目" %>
           </div>
           <div class="col-lg-9">
-            <%#= f.select :item_id, options_from_collection_for_select(Item.all, :id, :name, @post.item_id), { prompt: "選択してください" }, class: "form-control" %>
-            <%= f.collection_select :item_id, Item.all, :id, :name, prompt: "項目を選択" %>
+            <%= f.select :item_id, options_from_collection_for_select(Item.all, :id, :name, @post.item_id),{}, class: "form-control", style: 'max-width: 200px;' %>
           </div>
         </div>
 

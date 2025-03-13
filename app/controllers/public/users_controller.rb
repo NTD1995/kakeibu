@@ -15,7 +15,7 @@ class Public::UsersController < ApplicationController
 
   # ユーザー詳細画面
   def show
-    @user = current_user
+    @user = User.find(params[:id])
     @user_posts = @user.posts.order(created_at: :desc).page(params[:page]).per(10)
   end
 

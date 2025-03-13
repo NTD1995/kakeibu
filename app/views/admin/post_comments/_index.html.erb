@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row" style="margin: 20px;">
+    <div class="col-lg-12">
+      <h5 style="margin: 0;"><strong>コメント一覧</strong></h5>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ユーザー画像</th>
+            <th>名前</th>
+            <th>コメント</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% post.post_comments.each do |post_comment| %>
+          <tr>
+            <td>
+              <% if post_comment.user.image.attached? %>
+                <%= image_tag post_comment.user.image, class: "rounded-circle", width: 100, height: 100 %>
+              <% else %>
+                <%= image_tag "no_image.jpg", class: "rounded-circle", width: 100, height: 100 %>
+              <% end %>
+            </td>
+            <td><%= link_to post_comment.user.name, admin_user_path(post_comment.user) %></td>
+            <td><%= post_comment.comment %></td>
+            <td>
+              <%= link_to "削除", admin_post_comment_path(post_comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>  

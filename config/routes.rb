@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get 'post_comments/destroy'
+  end
   # トップページ
   root to: "public/homes#top"
   # アバウトページ
@@ -39,7 +42,9 @@ Rails.application.routes.draw do
     # 投稿詳細、編集、更新、削除
     resources :posts, only: [:show, :edit, :update, :destroy]
     # 項目一覧、追加、編集、更新、削除
-    resources :items, only: [:index, :create, :edit, :update, :destroy]     
+    resources :items, only: [:index, :create, :edit, :update, :destroy] 
+    # コメント削除
+    resources :post_comments, only: [:destroy]
   end
 
   # 検索

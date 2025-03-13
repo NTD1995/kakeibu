@@ -11,64 +11,62 @@
         <%= render "public/shared/error_messages", resource: @post %>
 
         <div class="form-group row">
-          <div class="col-lg-3">
-            <%= f.label :created_at, "日付" %>
+          <div class="col-lg-2">
+            <strong><%= f.label :created_at, "日付" %></strong>
           </div>
-          <div class="col-lg-9">
-            <%= f.date_field :created_at, class: "form-control", value: @post.created_at.to_date %>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <div class="col-lg-3">
-            <%= f.label :content, "内容" %>
-          </div>
-          <div class="col-lg-9">
-            <%= f.text_field :content, class: "form-control", value: @post.content %>
+          <div class="col-lg-10">
+            <%= f.date_field :created_at, class: "form-control", style: 'max-width: 200px;', value: @post.created_at.to_date %>
           </div>
         </div>
 
         <div class="form-group row">
-          <div class="col-lg-3">
-            <%= f.label :category, "収支区分" %>
+          <div class="col-lg-2">
+            <strong><%= f.label :content, "内容" %></strong>
           </div>
-          <div class="col-lg-9">
+          <div class="col-lg-10">
+            <%= f.text_field :content, class: "form-control", style: 'max-width: 200px;', value: @post.content %>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-lg-2">
+            <strong><%= f.label :category, "収支区分" %></strong>
+          </div>
+          <div class="col-lg-10">
             <%= f.radio_button :category, :income, checked: @post.category == "income" %> 収入
             <%= f.radio_button :category, :expense, checked: @post.category == "expense" %> 支出
           </div>
         </div>
 
         <div class="form-group row">
-          <div class="col-lg-3">
-            <%= f.label :price, "金額" %>
+          <div class="col-lg-2">
+            <strong><%= f.label :price, "金額" %></strong>
           </div>
-          <div class="col-lg-9">
-            <%= f.number_field :price, class: "form-control", value: @post.price %>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <div class="col-lg-3">
-            <%= f.label :item_id, "項目" %>
-          </div>
-          <div class="col-lg-9">
-            <%= f.select :item_id, options_from_collection_for_select(Item.all, :id, :name, @post.item_id), { prompt: "選択してください" }, class: "form-control" %>
+          <div class="col-lg-10">
+            <%= f.number_field :price, class: "form-control", style: 'max-width: 200px;', value: @post.price %>
           </div>
         </div>
 
         <div class="form-group row">
-          <div class="col-lg-3">
-            <%= f.label :memo, "メモ" %>
+          <div class="col-lg-2">
+            <strong><%= f.label :item_id, "項目" %></strong>
           </div>
-          <div class="col-lg-9">
-            <%= f.text_area :memo, class: "form-control", style: "height: 100px;" do %>
-              <%= @post.memo %>
-            <% end %>
+          <div class="col-lg-10">
+            <%= f.select :item_id, options_from_collection_for_select(Item.all, :id, :name, @post.item_id), { prompt: "選択してください" }, class: "form-control", style: 'max-width: 200px;' %>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-lg-2">
+            <strong><%= f.label :memo, "メモ" %></strong>
+          </div>
+          <div class="col-lg-10">
+            <%= f.text_area :memo, class: "form-control", style: 'max-width: 200px; height: 100px;', value: @post.memo %>
           </div>
         </div>             
 
         <div class="row">
-          <div class="col-lg-12 d-flex justify-content-center">
+          <div class="col-lg-12 d-flex justify-conte">
             <% if @post.user == current_user %>          
               <%= link_to "投稿詳細に戻る", post_path(@post), class: "btn btn-primary mr-2" %>
               <%= f.submit "投稿を更新", class: "btn btn-success mr-2" %>
