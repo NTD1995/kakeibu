@@ -15,10 +15,10 @@
     <div class="col-lg-8">
       <div class="user-details">
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-4">
             <h6><strong>ユーザー画像</strong></h6>
           </div>
-          <div class="col-md-10">
+          <div class="col-md-8">
             <% if @user.image.attached? %>
               <%= image_tag @user.image, alt: @user.name, class: "rounded-circle", width: 100, height: 100 %>
             <% else %>
@@ -28,19 +28,19 @@
         </div>
         
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-4">
             <h6><strong>名前</strong></h6>
           </div>
-          <div class="col-md-10">
+          <div class="col-md-8">
             <p><%= @user.name %></p>
           </div>
         </div>
         
         <div class="row">
-          <div class="col-md-2">
-            <h6><strong>自己紹介</strong></h6>
+          <div class="col-md-4">
+            <h6><strong>自己紹介文</strong></h6>
           </div>
-          <div class="col-md-10">
+          <div class="col-md-8">
             <p><%= @user.introduction %></p>
           </div>
         </div>
@@ -58,6 +58,7 @@
             <th>内容</th>
             <th>金額</th>
             <th>項目</th>
+            <th>コメント数</th>
           </tr>
         </thead>
         <tbody>
@@ -70,6 +71,7 @@
                 <%= number_to_currency(price, delimiter: ",") %>
               </td>
               <td><%= post.item.name %></td>
+              <td><%= post.post_comments.count %></td>
             </tr>
           <% end %>
         </tbody>
