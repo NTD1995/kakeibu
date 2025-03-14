@@ -3,6 +3,7 @@ class Post < ApplicationRecord
   belongs_to :user
   belongs_to :item
   has_many :post_comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   # カラムが空でないこと
   validates :created_at, presence: true
@@ -27,4 +28,10 @@ class Post < ApplicationRecord
       Post.where('content LIKE ?', '%' + content + '%')
     end
   end  
+
+  # 指定されたユーザが特定の投稿をいいねしているかどうかを判定
+  def favorited_by?(user)
+   favorites.exists?(user_id: user.id)
+ end
+
 end
