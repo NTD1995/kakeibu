@@ -53,8 +53,7 @@
             <%= f.label :item_id, "項目" %>
           </div>
           <div class="col-lg-9">
-            <%#= f.select :item_id, options_from_collection_for_select(Item.all, :id, :name, @post.item_id), { prompt: "選択してください" }, class: "form-control" %>
-            <%= f.collection_select :item_id, Item.all, :id, :name, prompt: "項目を選択" %>
+            <%= f.select :item_id, options_from_collection_for_select(Item.all, :id, :name, @post.item_id),{}, class: "form-control", style: 'max-width: 200px;' %>
           </div>
         </div>
 

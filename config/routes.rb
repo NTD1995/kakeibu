@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get 'post_comments/destroy'
+  end
   # トップページ
   root to: "public/homes#top"
   # アバウトページ
@@ -46,6 +49,8 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :create, :edit, :update, :destroy]  
     # 検索一覧 
     get "search", to: "searches#search", as: "search"  
+    # コメント削除
+    resources :post_comments, only: [:destroy]
   end
 
 end

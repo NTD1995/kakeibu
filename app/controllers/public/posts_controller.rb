@@ -16,7 +16,6 @@ class Public::PostsController < ApplicationController
 
   # 新規投稿処理
   def create
-    Rails.logger.debug "Category: #{params[:post][:category]}" 
     @post = Post.new(post_params.merge(user_id: current_user.id))
     if @post.save
       redirect_to posts_path(@post), notice: "投稿に成功しました。"
