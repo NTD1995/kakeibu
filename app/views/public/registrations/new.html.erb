@@ -3,60 +3,60 @@
     <div class="col-lg-12">
       <h4 style="margin: 0;"><strong>新規ユーザー登録</strong></h4>    
     </div>
+  </div>  
+
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= render "public/shared/error_messages", resource: resource %>
+
+        <div class="form-group">
+          <%= f.label :name, "名前", class: "font-weight-bold" %>
+          <%= f.text_field :name, autofocus: true, class: "form-control", placeholder: "a" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :introduction, "自己紹介文", class: "font-weight-bold" %>
+          <%= f.text_field :introduction, autofocus: true, class: "form-control", placeholder: "よろしくお願いします。" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :email, "メールアドレス", class: "font-weight-bold" %>
+          <%= f.email_field :email, autocomplete: "email", class: "form-control", placeholder: "sample@sample.com" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password, "パスワード", class: "font-weight-bold" %>
+          <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %>文字以上)</em>
+          <% end %>
+          <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password_confirmation, "パスワード(確認用)", class: "font-weight-bold" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+        </div>
+
+        <div class="text-center mt-3">
+          <%= f.submit "新規登録", class: "btn btn-success px-5 py-2" do %>
+            <i class="fa-solid fa-user-plus"></i> 新規登録
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-lg-12">
+      <h4><strong>既に登録済みの方</strong></h4>
+    </div>
   </div>
 
   <div class="row">
     <div class="col-lg-12">
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <%= render "public/shared/error_messages", resource: resource %>
-
-        <table class="table">
-          <tbody>
-            <tr>
-              <th><%= f.label :name, "名前" %></th>
-              <td><%= f.text_field :name, autofocus: true, class: "form-control", placeholder: "a", style: "width: 200px;" %></td>              
-            </tr>
-            <tr>
-              <th><%= f.label :introduction, "自己紹介文" %></th>
-              <td><%= f.text_field :introduction, autofocus: true, class: "form-control", placeholder: "よろしくお願いします。", style: "width: 200px;" %></td>                       
-            </tr>
-            <tr>
-              <th><%= f.label :email, "メールアドレス" %></th>
-              <td><%= f.email_field :email, autocomplete: "email", class: "form-control", placeholder: "sample@sample.com", style: "width: 200px;" %></td>
-            </tr>
-            <tr>
-              <th><%= f.label :password, "パスワード" %>
-                <% if @minimum_password_length %>
-                  <em>(<%= @minimum_password_length %>文字以上)</em>
-                <% end %>
-              </th>
-              <td><%= f.password_field :password, autocomplete: "new-password", class: "form-control", style: "width: 200px;" %></td>
-            </tr>
-            <tr>
-              <th><%= f.label :password_confirmation, "パスワード(確認用)" %></th>
-              <td><%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", style: "width: 200px;" %></td>
-            </tr>
-            <tr>
-              <th></th>
-              <td><%= f.submit "新規登録", class: "btn btn-success", style: "padding: 5px 60px;" %></td>
-            </tr>
-          </tbody>
-        </table>
-      <% end %>
-
-      <div class="row" style="margin: 20px;">
-        <div class="col-lg-12">
-          <h4 style="margin: 0;"><strong>既に登録済みの方</strong></h4>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-12">
-            <%= link_to "こちら", new_user_session_path, style: "text-decoration: underline;" %>
-            からログインしてください。
-        </div>
-      </div>
-      
+      <%= link_to "こちら", new_user_session_path, style: "text-decoration: underline;" %>
+      からログインしてください。
     </div>
   </div>
 </div>
