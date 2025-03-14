@@ -7,7 +7,10 @@
   
   <div class="row">
     <div class="col-lg-8">
-      <h5 style="margin: 10px;"><strong>ユーザー情報</strong></h5>
+      <div class="d-flex justify-content-left">
+        <h5 style="margin: 10px;"><strong>ユーザー情報</strong></h5>
+        <%= link_to "ユーザー一覧に戻る", users_path, class: "btn btn-primary ml-5 mr-2 px-2 py-2" %>
+      </div>  
     </div>
   </div>
 
@@ -44,6 +47,7 @@
             <p><%= @user.introduction %></p>
           </div>
         </div>
+        
       </div>
     </div>
   </div> 
