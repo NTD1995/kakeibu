@@ -18,7 +18,7 @@ class Admin::FavoritesController < ApplicationController
      favorite = Favorite.new(admin_id: current_admin.id, post_id: post.id)
      favorite.save
     end
-    redirect_to request.referer
+    @post = post
   end
   
   # いいねを外す処理
@@ -32,7 +32,7 @@ class Admin::FavoritesController < ApplicationController
       favorite = Favorite.find_by(post_id: params[:id],admin_id: current_admin.id)
       favorite.destroy
     end
-    redirect_to request.referer
+    @post = favorite.post
   end
 
 end
