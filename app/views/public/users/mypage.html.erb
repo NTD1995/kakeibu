@@ -68,7 +68,9 @@
               </td>
               <td><%= post.item.name %></td>
               <td><%= post.post_comments.count %></td>
-              <td><%= render "public/favorites/btn", post: post %></td>
+              <td id="favorite_btn_<%= post.id %>">
+                <%= render "public/favorites/btn", post: post %>
+              </td>
             </tr>
           <% end %>
         </tbody>
