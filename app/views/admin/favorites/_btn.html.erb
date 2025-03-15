@@ -1,0 +1,11 @@
+<% if post.favorited_by_for_admin?(current_admin) %>
+  <%= link_to admin_favorite_path(id: post.id), method: :delete, remote: true  do %>
+    <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
+    <%= post.favorites.count %> いいね
+  <% end %>
+<% else %>
+  <%= link_to admin_favorites_path(post_id: post.id), method: :post, remote: true do %>
+    <i class="fas fa-heart" aria-hidden="true"></i>
+    <%= post.favorites.count %> いいね
+  <% end %>
+<% end %>

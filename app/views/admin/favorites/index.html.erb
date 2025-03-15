@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row" style="margin: 20px;">
     <div class="col-lg-12">
-      <h4 style="margin: 0;"><strong>投稿一覧</strong></h4>
+      <h4><strong>いいねされている投稿一覧</strong></h4>
     </div>
   </div>
 
@@ -10,6 +10,8 @@
       <table class="table table-bordered">
         <thead>
           <tr>
+            <th>いいねID</th>
+            <th>投稿ID</th>
             <th>名前</th>
             <th>日付</th>
             <th>内容</th>
@@ -20,23 +22,22 @@
           </tr>
         </thead>
         <tbody>
-          <% @posts.each do |post| %>
+          <% @favorites.each do |favorite| %>
+            <% post = favorite.post %>
             <tr>
-              <td>
-                <%= link_to post.user.name, user_path(post.user) %>
-              </td>
+              <td><%= favorite.id %></td>
+              <td><%= post.id %></td>
+              <td><%= link_to post.user.name, admin_user_path(post.user) %></td>
               <td><%= post.created_at.strftime("%Y年%m月%d日") %></td>
+              <td><%= link_to post.content, admin_post_path(post) %></td>
               <td>
-                <%= link_to post.content, post_path(post) %>
-              </td>
-              <td> 
                 <% price = post.category == "expense" ? "-#{post.price}" : post.price %>
                 <%= number_to_currency(price, delimiter: ",") %>
               </td>
               <td><%= post.item.name %></td>
               <td><%= post.post_comments.count %></td>
               <td id="favorite_btn_<%= post.id %>">
-                <%= render "public/favorites/btn", post: post %>
+                <%= render "admin/favorites/btn", post: post %>
               </td>
             </tr>
           <% end %>
@@ -47,8 +48,8 @@
 
   <div class="row">
     <div class="col-lg-12 d-flex justify-content-center">
-      <%= paginate @posts %>
+      <%= paginate @favorites %>
     </div>
   </div>
-  
 </div>
+   

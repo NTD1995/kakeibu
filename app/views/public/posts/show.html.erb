@@ -18,6 +18,7 @@
             <th>項目</th>
             <th>メモ</th>
             <th>コメント数</th>
+            <th>いいね数</th>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +39,9 @@
             <td><%= @post.memo %></td>
             <td id="post-comments-counter">
               <%= render "public/post_comments/counter", post: @post %>
+            </td>
+            <td id="favorite_btn_<%= @post.id %>">
+              <%= render "public/favorites/btn", post: @post %>
             </td>
           </tr>
         </tbody>

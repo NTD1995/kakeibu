@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    get 'post_comments/destroy'
-  end
   # トップページ
   root to: "public/homes#top"
   # アバウトページ
@@ -19,12 +16,16 @@ Rails.application.routes.draw do
     resource :relationships, only: [:create, :destroy]
       get "followers", to: "public/relationships#followers", as: "followers"
   	  get "followeds", to: "public/relationships#followeds", as: "followeds"
+    # いいねした一覧
+    get "favorites", to: "public/favorites#index", as: "favorites"    
   end
   # 投稿
   scope module: :public do
     resources :posts do
-      # 投稿のコメント
+      # 投稿に対してコメントの投稿、削除
       resources :post_comments, only: [:create, :destroy]
+      # いいねをつける、外す
+      resource :favorites, only: [:create, :destroy]
     end
   end
   # 検索一覧
@@ -49,8 +50,10 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :create, :edit, :update, :destroy]  
     # 検索一覧 
     get "search", to: "searches#search", as: "search"  
-    # コメント削除
+    # 投稿に対してコメント削除
     resources :post_comments, only: [:destroy]
+    # いいねされている投稿一覧、いいねをつける、外す
+    resources :favorites, only: [:index, :create, :destroy]
   end
 
 end
