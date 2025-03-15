@@ -1,2 +1,53 @@
-<h1>Admin::Favorites#index</h1>
-<p>Find me in app/views/admin/favorites/index.html.erb</p>
+<div class="container">
+  <div class="row" style="margin: 20px;">
+    <div class="col-lg-12">
+      <h4><strong>いいねされている投稿一覧</strong></h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>いいねID</th>
+            <th>投稿ID</th>
+            <th>名前</th>
+            <th>日付</th>
+            <th>内容</th>
+            <th>金額</th>
+            <th>項目</th>
+            <th>コメント数</th>
+            <th>いいね数</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @favorites.each do |favorite| %>
+            <% post = favorite.post %>
+            <tr>
+              <td><%= favorite.id %></td>
+              <td><%= post.id %></td>
+              <td><%= link_to post.user.name, admin_user_path(post.user) %></td>
+              <td><%= post.created_at.strftime("%Y年%m月%d日") %></td>
+              <td><%= link_to post.content, admin_post_path(post) %></td>
+              <td>
+                <% price = post.category == "expense" ? "-#{post.price}" : post.price %>
+                <%= number_to_currency(price, delimiter: ",") %>
+              </td>
+              <td><%= post.item.name %></td>
+              <td><%= post.post_comments.count %></td>
+              <td><%= render "admin/favorites/btn", post: post %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12 d-flex justify-content-center">
+      <%= paginate @favorites %>
+    </div>
+  </div>
+</div>
+   

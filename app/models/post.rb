@@ -31,7 +31,14 @@ class Post < ApplicationRecord
 
   # 指定されたユーザが特定の投稿をいいねしているかどうかを判定
   def favorited_by?(user)
-   favorites.exists?(user_id: user.id)
+    return false if user.nil?
+    favorites.exists?(user_id: user.id)
+ end
+
+   # 指定されたユーザが特定の投稿をいいねしているかどうかを判定
+ def favorited_by_for_admin?(admin)
+    return false if admin.nil?
+    favorites.exists?(admin_id: admin.id)
  end
 
 end

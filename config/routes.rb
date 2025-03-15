@@ -16,10 +16,8 @@ Rails.application.routes.draw do
     resource :relationships, only: [:create, :destroy]
       get "followers", to: "public/relationships#followers", as: "followers"
   	  get "followeds", to: "public/relationships#followeds", as: "followeds"
-      # いいね一覧
-    # resource :favorites, only: [:index]  
+    # いいねした一覧
     get "favorites", to: "public/favorites#index", as: "favorites"    
-  
   end
   # 投稿
   scope module: :public do
@@ -54,8 +52,8 @@ Rails.application.routes.draw do
     get "search", to: "searches#search", as: "search"  
     # 投稿に対してコメント削除
     resources :post_comments, only: [:destroy]
-    # いいね一覧、つける、外す
-    resource :favorites, only: [:index, :create, :destroy]
+    # いいねされている投稿一覧、いいねをつける、外す
+    resources :favorites, only: [:index, :create, :destroy]
   end
 
 end

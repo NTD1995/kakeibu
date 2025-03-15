@@ -88,6 +88,7 @@
             <th>金額</th>
             <th>項目</th>
             <th>コメント数</th>
+            <th>いいね数</th>
           </tr>
         </thead>
         <tbody>
@@ -102,6 +103,7 @@
               </td>
               <td><%= post.item.name %></td>
               <td><%= post.post_comments.count %></td>
+              <td><%= render "admin/users/btn", {post: post, user: @user} %></td>
             </tr>
           <% end %>
         </tbody>
@@ -114,4 +116,46 @@
       <%= paginate @user_posts %>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-lg-8">
+      <h5 style="margin: 10px;"><strong><%= @user.name %>さん以外の投稿一覧</strong></h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>投稿ID</th>
+            <th>日付</th>
+            <th>内容</th>
+            <th>金額</th>
+            <th>項目</th>
+            <th>コメント数</th>
+            <th>いいね数</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% Post.where.not(user: @user).each do |post| %>
+            <tr>
+              <td><%= post.id %></td>
+              <td><%= post.created_at.strftime("%Y年%m月%d日") %></td>
+              <td><%= link_to post.content, admin_post_path(post) %></td>
+              <td>
+                <% price = post.category == "expense" ? "-#{post.price}" : post.price %>
+                <%= number_to_currency(price, delimiter: ",") %>
+              </td>
+              <td><%= post.item.name %></td>
+              <td><%= post.post_comments.count %></td>
+              <td><%= render "admin/users/btn", {post: post, user: @user} %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8 d-flex justify-content-center">
+      <%= paginate @user_posts %>
+    </div>
+  </div>
+
 </div>

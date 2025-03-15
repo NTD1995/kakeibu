@@ -17,6 +17,7 @@
             <th>金額</th>
             <th>項目</th>
             <th>コメント数</th>
+            <th>いいね数</th>
           </tr>
         </thead>
         <tbody>
@@ -36,6 +37,7 @@
               </td>
               <td><%= post.item.name %></td>
               <td><%= post.post_comments.count %></td>
+              <td><%= render "admin/favorites/btn", post: post %></td>
             </tr>
           <% end %>
         </tbody>
