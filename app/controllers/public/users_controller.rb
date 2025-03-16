@@ -40,10 +40,15 @@ class Public::UsersController < ApplicationController
     redirect_to new_user_registration_path, notice: "退会しました。"
   end
 
+ 
   def followers
+    user = User.find(params[:id])
+    @users = user.followers
   end
 
   def followeds
+    user = User.find(params[:id])
+    @users = user.followeds
   end
 
   private

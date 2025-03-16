@@ -12,6 +12,9 @@
           <tr>
             <th>ユーザー画像</th>
             <th>名前</th>
+            <th>フォロー数</th>
+            <th>フォロワー数</th>
+            <th>操作</th>
           </tr>
         </thead>
         <tbody>
@@ -27,6 +30,9 @@
               <td>
                 <%= link_to user.name, user_path(user) %>
               </td>
+              <td><%= link_to user.followeds.count, user_followeds_path(user) %></td>
+              <td><%= link_to user.followers.count, user_followers_path(user) %></td>
+              <td><%= render "public/relationships/btn", user: user %></td>
             </tr>
           <% end %>
         </tbody>

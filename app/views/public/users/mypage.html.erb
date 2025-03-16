@@ -6,16 +6,18 @@
   </div>
 
   <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
       <div class="d-flex justify-content-left">
         <h4 style="margin: 0;"><strong>登録情報</strong></h4>
-        <%= link_to "編集する", edit_user_path(current_user), class: "btn btn-success ml-5 mb-2" %>
+        <%= link_to edit_user_path(current_user), class: "btn btn-success ml-5 mb-2" do %>
+          <i class="fas fa-user-cog"></i> 編集する
+        <% end %>
       </div>      
     </div>
   </div>
 
   <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -23,6 +25,8 @@
             <th>名前</th>
             <th>自己紹介文</th>
             <th>メールアドレス</th>
+            <th>フォロー数</th>
+            <th>フォロワー数</th>
           </tr>
         </thead>
         <tbody>
@@ -37,6 +41,8 @@
             <td><%= current_user.name %></td>
             <td><%= current_user.introduction %></td>
             <td><%= current_user.email %></td>
+            <td><%= link_to @user.followeds.count, user_followeds_path(@user) %></td>
+            <td><%= link_to @user.followers.count, user_followers_path(@user) %></td>
           </tr>
         </tbody>
       </table>
@@ -44,7 +50,7 @@
    </div>
 
    <div class="row">
-     <div class="col-lg-8">
+     <div class="col-lg-12">
        <h4><strong>投稿一覧</strong></h4>
         <table class="table table-bordered">
           <thead>
@@ -79,7 +85,7 @@
   </div>
 
   <div class="row">
-    <div class="col-lg-8 d-flex justify-content-center">
+    <div class="col-lg-12 d-flex justify-content-center">
       <%= paginate @user_posts %>
     </div>
   </div>

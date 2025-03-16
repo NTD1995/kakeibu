@@ -13,11 +13,11 @@ Rails.application.routes.draw do
   # ユーザー一覧、詳細、編集、更新、退会
   resources :users, controller: "public/users", only: [:index, :show, :edit, :update, :destroy] do
     # フォロー、フォロワー
-    resource :relationships, only: [:create, :destroy]
+    resource :relationships, controller: "public/relationships", only: [:create, :destroy]
       get "followers", to: "public/relationships#followers", as: "followers"
   	  get "followeds", to: "public/relationships#followeds", as: "followeds"
-    # いいねした一覧
-    get "favorites", to: "public/favorites#index", as: "favorites"    
+      # いいねした一覧
+      get "favorites", to: "public/favorites#index", as: "favorites"    
   end
   # 投稿
   scope module: :public do

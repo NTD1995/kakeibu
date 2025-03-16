@@ -21,9 +21,9 @@
           <tr>
             <td>
               <% if post_comment.user.image.attached? %>
-                <%= image_tag post_comment.user.image, class: "rounded-circle", width: 100, height: 100 %>
+                <%= image_tag post_comment.user.image, class: "rounded-circle", width: 50, height: 50 %>
               <% else %>
-                <%= image_tag "no_image.jpg", class: "rounded-circle", width: 100, height: 100 %>
+                <%= image_tag "no_image.jpg", class: "rounded-circle", width: 50, height: 50 %>
               <% end %>
             </td>
             <td><%= link_to post_comment.user.name, user_path(post_comment.user) %></td>
