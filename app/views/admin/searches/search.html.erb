@@ -4,7 +4,7 @@
       <% if @records.present? %>
         <% if @model == 'user' %>
           <h4><strong><%= @content %>の検索結果一覧</strong></h4>
-            <%= render 'admin/users/index', users: @records %>
+            <%= render 'admin/users/index', users: @records, btn: false %>
         <% elsif @model == 'post' %>
           <h4><strong><%= @content %>の検索結果一覧</strong></h4>
             <%= render 'admin/homes/top', posts: @records %>

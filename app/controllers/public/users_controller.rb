@@ -40,12 +40,6 @@ class Public::UsersController < ApplicationController
     redirect_to new_user_registration_path, notice: "退会しました。"
   end
 
-  def followers
-  end
-
-  def followeds
-  end
-
   private
 
   def user_params

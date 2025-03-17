@@ -12,12 +12,13 @@ Rails.application.routes.draw do
   get "mypage", to: "public/users#mypage", as: "mypage"
   # ユーザー一覧、詳細、編集、更新、退会
   resources :users, controller: "public/users", only: [:index, :show, :edit, :update, :destroy] do
-    # フォロー、フォロワー
-    resource :relationships, only: [:create, :destroy]
+    # フォローする、フォローを外す
+    resource :relationships, controller: "public/relationships", only: [:create, :destroy]
+      # フォロー一覧、フォロワー一覧
       get "followers", to: "public/relationships#followers", as: "followers"
   	  get "followeds", to: "public/relationships#followeds", as: "followeds"
-    # いいねした一覧
-    get "favorites", to: "public/favorites#index", as: "favorites"    
+      # いいねした一覧
+      get "favorites", to: "public/favorites#index", as: "favorites"    
   end
   # 投稿
   scope module: :public do
@@ -54,6 +55,14 @@ Rails.application.routes.draw do
     resources :post_comments, only: [:destroy]
     # いいねされている投稿一覧、いいねをつける、外す
     resources :favorites, only: [:index, :create, :destroy]
+    # フォローする、フォローを外す、フォロー一覧、フォロワー一覧
+    resources :users do
+        member do
+          get :followers
+          get :followeds
+        end      
+      resources :relationships, only: [:create, :destroy]
+    end
   end
 
 end

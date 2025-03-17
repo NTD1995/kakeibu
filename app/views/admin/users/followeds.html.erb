@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row" style="margin: 20px;">
+    <div class="col-lg-12">
+      <h3 style="margin: 0;"><strong>フォローユーザー一覧</strong></h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <% if @users.exists? %>
+        <%= render "admin/users/index", users: @users, btn: true, host: @user, type: "followed" %>
+      <% else %>
+        <h4><strong>フォローユーザーはいません</strong></h4>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12 d-flex justify-content-center">
+      <%= paginate @users %>
+    </div>
+  </div>
+  
+</div>

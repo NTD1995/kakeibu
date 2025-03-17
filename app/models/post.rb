@@ -33,12 +33,12 @@ class Post < ApplicationRecord
   def favorited_by?(user)
     return false if user.nil?
     favorites.exists?(user_id: user.id)
- end
+  end
 
    # 管理者が特定の投稿をいいねしているかどうかを判定
- def favorited_by_for_admin?(admin)
+  def favorited_by_for_admin?(admin)
     return false if admin.nil?
     favorites.exists?(admin_id: admin.id)
- end
-
+  end
+ 
 end

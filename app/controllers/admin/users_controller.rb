@@ -4,7 +4,8 @@ class Admin::UsersController < ApplicationController
 
   # ユーザー一覧画面
   def index
-    @users = User.all.page(params[:page]).per(10) 
+    @users = User.all.page(params[:page]).per(10)
+    @host = User.find(params[:host_id]) if params[:host_id].present?
   end  
 
   # ユーザー詳細画面
@@ -24,6 +25,18 @@ class Admin::UsersController < ApplicationController
       flash.now[:alert] = "ユーザー情報が更新されませんでした。"
       render :edit
     end        
+  end
+
+  # フォロー一覧画面
+  def followers
+    @user = User.find(params[:id])
+    @users = @user.followers.page(params[:page])
+  end
+  
+  # フォロワー一覧画面
+  def followeds
+    @user = User.find(params[:id])
+    @users = @user.followeds.page(params[:page])
   end
 
     private
