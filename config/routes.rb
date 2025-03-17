@@ -18,8 +18,13 @@ Rails.application.routes.draw do
       get "followers", to: "public/relationships#followers", as: "followers"
   	  get "followeds", to: "public/relationships#followeds", as: "followeds"
       # いいねした一覧
-      get "favorites", to: "public/favorites#index", as: "favorites"    
+      get "favorites", to: "public/favorites#index", as: "favorites"
   end
+    # ルームを作成、詳細
+  resources :rooms, controller: "public/rooms", only: [:create, :show] do
+    # メッセージを作成      
+    resources :messages, controller: "public/messages", only: [:create]
+  end  
   # 投稿
   scope module: :public do
     resources :posts do
