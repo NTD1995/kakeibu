@@ -1,3 +1,4 @@
+<%# ユーザーの検索結果一覧%>
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
@@ -8,6 +9,9 @@
             <th>ユーザー画像</th>
             <th>名前</th>
             <th>ユーザーステータス</th>
+            <% if btn %>
+              <th>操作</th>
+            <% end %>
           </tr>
         </thead>
         <tbody>
@@ -28,7 +32,10 @@
                 <td class="text-success" style="font-weight: bold;">有効</td>
               <% else %>
                 <td class="text-black-50" style="font-weight: bold;">退会</td>
-              <% end %>  
+              <% end %> 
+              <% if btn %> 
+                <td><%= render "admin/relationships/btn", user: user, type: type, host: host %></td>
+              <% end %>
             </tr>
           <% end %>
         </tbody>

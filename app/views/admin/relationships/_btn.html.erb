@@ -1,0 +1,15 @@
+<% if current_admin %>
+  <% if type == "follower" %>
+    <% if host.follower_by?(user) %>
+      <%= link_to "フォロー外す", admin_user_relationship_path(user.id, host.passive_relationships.find_by(follower_id: user).id), method: :delete, class: "btn btn-danger" %>
+    <% else %>
+      <%= link_to "フォローする", admin_user_relationship_path(user.id, 1), method: :post, class: "btn btn-success" %>
+    <% end %>
+  <% else %>
+      <% if host.followed_by?(user) %>
+      <%= link_to "フォロー外す", admin_user_relationship_path(user.id, host.active_relationships.find_by(followed_id: user).id), method: :delete, class: "btn btn-danger" %>
+    <% else %>
+      <%= link_to "フォローする", admin_user_relationship_path(user.id, host_id: host), method: :post, class: "btn btn-success" %>
+    <% end %>
+  <% end %>
+<% end %>

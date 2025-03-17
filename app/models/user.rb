@@ -56,7 +56,12 @@ class User < ApplicationRecord
   end
 
   # 指定したユーザーにフォローされているかどうかを判定
-  def followed_by?(user)
+  def follower_by?(user)
     passive_relationships.find_by(follower_id: user.id).present?
+  end
+
+  # 指定したユーザーをフォローしているかどうかをデータベースに都度問い合わせて判定
+  def followed_by?(user)
+    active_relationships.find_by(followed_id: user.id).present?
   end
 end
