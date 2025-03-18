@@ -2,6 +2,8 @@ class Public::RoomsController < ApplicationController
   before_action :authenticate_user!
   before_action :reject_non_related, only: [:show]
 
+
+  # ルーム新規作成処理
   def create
     @room = Room.create
     @entry1 = Entry.create(room_id: @room.id, user_id: current_user.id)
@@ -9,6 +11,7 @@ class Public::RoomsController < ApplicationController
     redirect_to room_path(@room)
   end
 
+  # ルーム詳細画面
   def show
     @user = current_user
     @room = Room.find(params[:id])

@@ -10,37 +10,37 @@
           <% if user_signed_in? && !admin_signed_in? %>
             <li>
               <%= link_to root_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-house"></i> ホーム
+                <i class="fa-solid fa-house fa-spin-pulse"></i> ホーム
               <% end %>
             </li>  
             <li>
               <%= link_to mypage_path, class:"nav-link text-light" do%>                     
-                <i class="fa-regular fa-user"></i> マイページ
+                <i class="fa-regular fa-user fa-spin fa-spin-reverse"></i> マイページ
               <% end %>  
             </li>             
             <li>
               <%= link_to posts_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-pen"></i> 投稿一覧
+                <i class="fa-solid fa-pen fa-shake"></i> 投稿一覧
               <% end %>  
             </li>             
             <li>
               <%= link_to users_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-users"></i> ユーザー一覧
+                <i class="fa-solid fa-users fa-spin"></i> ユーザー一覧
               <% end %> 
             </li> 
             <li>
               <%= link_to user_favorites_path(current_user), class:"nav-link text-light" do%>
-                <i class="fa-solid fa-thumbs-up"></i> いいね一覧
+                <i class="fa-solid fa-thumbs-up fa-bounce"></i> いいね一覧
               <% end %>  
             </li> 
             <li>
               <%= link_to new_post_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-pen-nib"></i> 新規投稿
+                <i class="fa-solid fa-pen-nib fa-flip"></i> 新規投稿
               <% end %>    
             </li>             
             <li>
               <%= link_to destroy_user_session_path, method: :delete, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+                <i class="fa-solid fa-right-from-bracket fa-beat-fade"></i> ログアウト
               <% end %>
             </li> 
             <li>
@@ -59,32 +59,37 @@
           <% elsif admin_signed_in? %>          
             <li>
               <%= link_to root_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-house"></i> ホーム
+                <i class="fa-solid fa-house fa-spin-pulse"></i> ホーム
               <% end %>
             </li>    
             <li>
               <%= link_to admin_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-pen"></i> 投稿一覧
+                <i class="fa-solid fa-pen fa-shake"></i> 投稿一覧
               <% end %>  
             </li>                       
             <li>
               <%= link_to admin_users_path(host_id: current_admin.id), class:"nav-link text-light" do%>
-                <i class="fa-solid fa-users"></i> ユーザー一覧
+                <i class="fa-solid fa-users fa-spin"></i> ユーザー一覧
               <% end %>
             </li> 
             <li>
               <%= link_to admin_favorites_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-thumbs-up"></i> いいね一覧
+                <i class="fa-solid fa-thumbs-up fa-bounce"></i> いいね一覧
               <% end %>
             </li> 
             <li>
+              <%= link_to admin_rooms_path, class:"nav-link text-light" do%>
+                <i class="fa-solid fa-person-shelter fa-beat"></i> ルーム一覧
+              <% end %>  
+            </li>            
+            <li>
               <%= link_to admin_items_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-list"></i> 項目一覧・新規追加
+                <i class="fa-solid fa-list fa-fade"></i> 項目一覧・新規追加
               <% end %>  
             </li>             
             <li>
               <%= link_to destroy_admin_session_path, method: :delete, class:"nav-link text-light" do%>            
-                <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+                <i class="fa-solid fa-right-from-bracket fa-beat-fade"></i> ログアウト
               <% end %>  
             </li> 
             <li>
@@ -103,27 +108,27 @@
           <% else %>
             <li>
               <%= link_to root_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-house"></i> ホーム
+                <i class="fa-solid fa-house fa-spin-pulse"></i> ホーム
               <% end %>
             </li>
             <li>
               <%= link_to about_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-info"></i>  アバウト
+                <i class="fa-solid fa-info fa-bounce"></i>  アバウト
               <% end %>
             </li>
             <li>
               <%= link_to posts_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-pen"></i> 投稿一覧
+                <i class="fa-solid fa-pen fa-shake"></i> 投稿一覧
               <% end %>  
             </li>
             <li>
               <%= link_to new_user_registration_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-user-plus"></i> 新規登録
+                <i class="fa-solid fa-user-plus fa-beat"></i> 新規登録
               <% end %>
             </li>             
             <li>
               <%= link_to new_user_session_path, class:"nav-link text-light" do%>              
-                <i class="fa-solid fa-right-to-bracket"></i> ログイン
+                <i class="fa-solid fa-right-to-bracket fa-beat-fade"></i> ログイン
               <% end %>
             </li> 
           </ul>

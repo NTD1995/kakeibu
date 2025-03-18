@@ -1,4 +1,7 @@
 class Public::MessagesController < ApplicationController
+  before_action :authenticate_user!
+
+  # メッセージ新規投稿処理
   def create
     if Entry.where(user_id: current_user.id, room_id: params[:message][:room_id]).present?
       @message = Message.new(message_params)

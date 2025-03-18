@@ -41,17 +41,17 @@
             </div>  
           </div>  
         </div>
-                      
+        <!-- メッセージセクション -->
         <% @messages.each do |m| %>
           <div class="row">
             <div class="col-lg-12">
               <% if m.user_id == current_user.id %>
-                <!-- 自分のメッセージ -->           
+                <!-- ログインユーザーのメッセージ -->           
                 <div class="chat-fukidashi" style="text-align: right;">
                   <strong><%= m.content %></strong>
                 </div>
               <% else %>
-                <!-- 他ユーザーのメッセージ -->
+                <!-- 他のユーザーのメッセージ -->
                 <div class="chat-fukidashi" style="text-align: left;">
                   <strong><%= m.content %></strong>
                 </div>

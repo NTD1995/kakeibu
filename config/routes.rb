@@ -68,6 +68,11 @@ Rails.application.routes.draw do
         end      
       resources :relationships, only: [:create, :destroy]
     end
+    # ルーム一覧、詳細、削除
+    resources :rooms, only: [:index, :show, :destroy] do
+    # メッセージを削除      
+    resources :messages, only: [:destroy]
+    end
   end
 
 end
