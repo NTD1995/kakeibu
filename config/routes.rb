@@ -31,6 +31,8 @@ Rails.application.routes.draw do
   end
   # 検索一覧
   get "search", to: "public/searches#search", as: "search"
+  # 投稿一覧の収支金額の１ヶ月間の表示
+  get "get_month_data", to: "public/posts#get_month_data", as: "get_month_data"
 
 
   # 管理者側

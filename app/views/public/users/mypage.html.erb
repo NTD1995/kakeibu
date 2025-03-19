@@ -84,6 +84,95 @@
     </div>
   </div>
 
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h4><strong>１ヶ月間の収入金額と支出金額と収支合計</strong></h4>
+
+        <!-- 月選択フォーム -->
+        <form id="monthSelectorForm">
+          <div class="form-group">
+            <select class="form-control" id="month" name="month">
+              <% (0..11).each do |n| %>
+                <% month = (Date.today.beginning_of_month - n.months) %>
+                <option value="<%= month.strftime("%Y-%m") %>"><%= month.strftime("%Y年%m月") %></option>
+              <% end %>
+            </select>
+          </div>
+          <button type="button" class="btn btn-primary" id="selectMonthBtn">月を選択</button>
+        </form>
+
+        <!-- 月の収入、支出、収支合計を表示するテーブル -->
+        <table class='table table-bordered'>
+          <thead>
+            <tr>
+              <th>日付</th>
+              <th>収入</th>
+              <th>支出</th>
+              <th>収支合計</th>
+            </tr>
+          </thead>
+          <tbody id="monthDataTable">
+          </tbody>
+        </table>
+          
+
+        <canvas id="myLineChart"></canvas>
+
+ 
+
+        <script>
+          $(document).on('turbolinks:load', function() {
+            // 月選択後、データを更新する関数
+            function updateDataForMonth(selectedMonth) {
+              const selectedDate = new Date(selectedMonth + "-01"); // 選択された月の初日
+              const lastDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 0); // 選択された月の最終日
+              const daysInMonth = lastDate.getDate();
+
+              let labels = [];
+              let incomeData = [];
+              let expenseData = [];
+              let balanceData = [];
+
+              // テーブルのリセット
+              $('#monthDataTable').empty();
+
+              // 月ごとのデータを取得して表示
+              for (let day = 1; day <= daysInMonth; day++) {
+                const currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), day);
+                const formattedDate = currentDate.toLocaleString().split('T')[0];
+
+                // データ取得
+                $.get({
+                  url: '/get_month_data', // 必要に応じてデータを取得するURLを指定
+                  // type: 'GET',
+                  data: { date: formattedDate }, // 日付をクエリパラメータとして送信
+                  success: function(data) {
+                    // 成功時にテーブルを更新
+                    $('#monthDataTable').append(`
+                      <tr>
+                        <td>${formattedDate}</td>
+                        <td>${data.income.toLocaleString()}</td>
+                        <td>${data.expense.toLocaleString()}</td>
+                        <td>${data.balance.toLocaleString()}</td>
+                      </tr>
+                    `);
+                  }
+                });
+              }
+            }
+
+            // 「月選択しました」ボタンをクリックした時にデータを更新
+            $('#selectMonthBtn').on('click', function() {
+              const selectedMonth = $('#month').val(); // 選択された月を取得
+              updateDataForMonth(selectedMonth); // 月データを更新
+            });
+          });
+        </script>
+
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-lg-12 d-flex justify-content-center">
       <%= paginate @user_posts %>

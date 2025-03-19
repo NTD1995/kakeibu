@@ -57,6 +57,16 @@ class Public::PostsController < ApplicationController
    redirect_to posts_path, alert: "投稿を削除しました。"    
   end
 
+  # 投稿一覧の収支金額の１ヶ月間の表示
+  def get_month_data
+    date = params[:date]
+    income = current_user.posts.where(created_at: date, category: "income").sum(:price)
+    expense = current_user.posts.where(created_at: date, category: "expense").sum(:price)
+    balance = income - expense
+    render json: { income: income, expense: expense, balance: balance }
+  end
+
+
   private
 
     # ユーザーから送信されたデータのうち許可した項目のみを取得
