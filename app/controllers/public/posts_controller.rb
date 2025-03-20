@@ -5,7 +5,7 @@ class Public::PostsController < ApplicationController
 
   # 投稿一覧画面
   def index
-    @posts = Post.all.includes(:item).page(params[:page])
+    @posts = Post.all.includes(:item).order(created_at: :desc).page(params[:page])
   end
 
   # 新規投稿画面
