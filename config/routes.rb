@@ -31,6 +31,8 @@ Rails.application.routes.draw do
   end
   # 検索一覧
   get "search", to: "public/searches#search", as: "search"
+  # 項目絞り込み一覧
+  get "filter", to: "public/filters#filter", as: "filter"
 
 
   # 管理者側
@@ -63,6 +65,9 @@ Rails.application.routes.draw do
         end      
       resources :relationships, only: [:create, :destroy]
     end
+    # 項目絞り込み一覧
+    get "filter", to: "filters#filter", as: "filter"
+
   end
 
 end

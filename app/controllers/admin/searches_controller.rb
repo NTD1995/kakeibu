@@ -12,7 +12,7 @@ class Admin::SearchesController < ApplicationController
     else
       @records = Post.search_for(@content, @method)
     end
-    @records = @records.page(params[:page]).per(1)
+    @records = @records.page(params[:page])
   end  
 
 end

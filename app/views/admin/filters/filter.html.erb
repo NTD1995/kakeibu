@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row" style="margin: 20px;">
+    <div class="col-lg-12">
+      <% if @posts.present? %>
+        <h4><strong>絞り込み結果一覧</strong></h4>
+        <%= render 'admin/homes/top', posts: @posts %>
+      <% else %>
+        <h4><strong>絞り込み結果がありません</strong></h4>
+      <% end %>            
+    </div>
+  </div>
+</div>

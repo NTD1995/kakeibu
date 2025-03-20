@@ -47,87 +47,93 @@
               <%# 検索フォーム表示 %> 
               <%= render 'public/searches/form' %>           
             </li>
-            <%# タグ検索フォーム表示 %> 
-            <div class="search_form">
-              <%= form_with url: "#" do |form| %>
-                <%= form.text_field :keyword, placeholder: "search" %>
-                <i class="fa-solid fa-tag"></i>
+            <li>
+              <%# 項目絞り込み検索フォーム表示 %> 
+              <%= form_with(url: filter_path, method: :get, local: true) do %>
+                <%= select_tag :item_id, options_from_collection_for_select(Item.all, :id, :name, params[:item_id]), include_blank: "すべて" %>
+                <%= button_tag type: "submit", class: "btn btn-light p-0 m-0" do %>
+                  <i class="fa-solid fa-filter"></i>
+                  <p>絞り込む</P>
+                <% end %>               
               <% end %>
-            </div>         
+            </li>
 
-          <%# 管理者ログイン時のヘッダー %>
-          <% elsif admin_signed_in? %>          
-            <li>
-              <%= link_to root_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-house"></i> ホーム
-              <% end %>
-            </li>    
-            <li>
-              <%= link_to admin_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-pen"></i> 投稿一覧
-              <% end %>  
-            </li>                       
-            <li>
-              <%= link_to admin_users_path(host_id: current_admin.id), class:"nav-link text-light" do%>
-                <i class="fa-solid fa-users"></i> ユーザー一覧
-              <% end %>
-            </li> 
-            <li>
-              <%= link_to admin_favorites_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-thumbs-up"></i> いいね一覧
-              <% end %>
-            </li> 
-            <li>
-              <%= link_to admin_items_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-list"></i> 項目一覧・新規追加
-              <% end %>  
-            </li>             
-            <li>
-              <%= link_to destroy_admin_session_path, method: :delete, class:"nav-link text-light" do%>            
-                <i class="fa-solid fa-right-from-bracket"></i> ログアウト
-              <% end %>  
-            </li> 
-            <li>
-              <%# 検索フォーム表示 %> 
-              <%= render 'admin/searches/form' %>           
-            </li>
-            <%# タグ検索フォーム表示 %> 
-            <div class="search_form">
-              <%= form_with url: "#" do |form| %>
-                <%= form.text_field :keyword, placeholder: "search" %>
-                <i class="fa-solid fa-tag"></i>
-              <% end %>
-            </div>
+            <%# 管理者ログイン時のヘッダー %>
+            <% elsif admin_signed_in? %>          
+              <li>
+                <%= link_to root_path, class:"nav-link text-light" do%>
+                  <i class="fa-solid fa-house"></i> ホーム
+                <% end %>
+              </li>    
+              <li>
+                <%= link_to admin_path, class:"nav-link text-light" do%>
+                  <i class="fa-solid fa-pen"></i> 投稿一覧
+                <% end %>  
+              </li>                       
+              <li>
+                <%= link_to admin_users_path(host_id: current_admin.id), class:"nav-link text-light" do%>
+                  <i class="fa-solid fa-users"></i> ユーザー一覧
+                <% end %>
+              </li> 
+              <li>
+                <%= link_to admin_favorites_path, class:"nav-link text-light" do%>
+                  <i class="fa-solid fa-thumbs-up"></i> いいね一覧
+                <% end %>
+              </li> 
+              <li>
+                <%= link_to admin_items_path, class:"nav-link text-light" do%>
+                  <i class="fa-solid fa-list"></i> 項目一覧・新規追加
+                <% end %>  
+              </li>             
+              <li>
+                <%= link_to destroy_admin_session_path, method: :delete, class:"nav-link text-light" do%>            
+                  <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+                <% end %>  
+              </li> 
+              <li>
+                <%# 検索フォーム表示 %> 
+                <%= render 'admin/searches/form' %>           
+              </li>
+              <li>
+                <%# 項目絞り込み検索フォーム表示 %> 
+                <%= form_with(url: admin_filter_path, method: :get, local: true) do %>
+                  <%= select_tag :item_id, options_from_collection_for_select(Item.all, :id, :name, params[:item_id]), include_blank: "すべて" %>
+                  <%= button_tag type: "submit", class: "btn btn-light p-0 m-0" do %>
+                    <i class="fa-solid fa-filter"></i>
+                    <p>絞り込む</P>
+                  <% end %>               
+                <% end %>
+              </li>
 
-          <%# ユーザー非ログイン時のヘッダー %>
-          <% else %>
-            <li>
-              <%= link_to root_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-house"></i> ホーム
-              <% end %>
-            </li>
-            <li>
-              <%= link_to about_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-info"></i>  アバウト
-              <% end %>
-            </li>
-            <li>
-              <%= link_to posts_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-pen"></i> 投稿一覧
-              <% end %>  
-            </li>
-            <li>
-              <%= link_to new_user_registration_path, class:"nav-link text-light" do%>
-                <i class="fa-solid fa-user-plus"></i> 新規登録
-              <% end %>
-            </li>             
-            <li>
-              <%= link_to new_user_session_path, class:"nav-link text-light" do%>              
-                <i class="fa-solid fa-right-to-bracket"></i> ログイン
-              <% end %>
-            </li> 
-          </ul>
-        <% end %>
+            <%# ユーザー非ログイン時のヘッダー %>
+            <% else %>
+              <li>
+                <%= link_to root_path, class:"nav-link text-light" do%>
+                  <i class="fa-solid fa-house"></i> ホーム
+                <% end %>
+              </li>
+              <li>
+                <%= link_to about_path, class:"nav-link text-light" do%>
+                  <i class="fa-solid fa-info"></i>  アバウト
+                <% end %>
+              </li>
+              <li>
+                <%= link_to posts_path, class:"nav-link text-light" do%>
+                  <i class="fa-solid fa-pen"></i> 投稿一覧
+                <% end %>  
+              </li>
+              <li>
+                <%= link_to new_user_registration_path, class:"nav-link text-light" do%>
+                  <i class="fa-solid fa-user-plus"></i> 新規登録
+                <% end %>
+              </li>             
+              <li>
+                <%= link_to new_user_session_path, class:"nav-link text-light" do%>              
+                  <i class="fa-solid fa-right-to-bracket"></i> ログイン
+                <% end %>
+              </li> 
+            </ul>
+          <% end %>
 
       </div>
     </div>
