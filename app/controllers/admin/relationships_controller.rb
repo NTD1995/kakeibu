@@ -3,14 +3,19 @@ class Admin::RelationshipsController < ApplicationController
   
   # フォローする処理
   def create
-    host = User.find(params[:host_id])
-    user = User.find(params[:user_id])
-    if Relationship.exists?(follower_id: host.id, followed_id: user.id)
-      flash.now[:alert] = "既にフォローしています。"
+    user = User.find_by(id: params[:user_id]) # フォロー元
+    followed = User.find_by(id: params[:followed_id]) # フォロー先
+    if user.nil? || followed.nil?
+      flash[:alert] = "フォローするユーザーを選択してください。"
       redirect_to request.referer
+    return
     end
+    if Relationship.exists?(follower_id: user.id, followed_id: followed.id)
+    else
+      Relationship.create(follower_id: user.id, followed_id: followed.id)
+    end
+    redirect_to request.referer  
   end
-
 
   # フォローを外す処理
   def destroy
