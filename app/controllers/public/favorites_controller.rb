@@ -4,7 +4,7 @@ class Public::FavoritesController < ApplicationController
   # ログインユーザーがいいねした一覧
   def index
     @user = User.find(params[:user_id])
-    @favorite_posts = Post.joins(:favorites).where(favorites: { user_id: @user.id }).page(params[:page])
+    @favorite_posts = Post.joins(:favorites).where(favorites: { user_id: @user.id }).order(created_at: :desc).page(params[:page])
   end
 
   # いいねをつける処理

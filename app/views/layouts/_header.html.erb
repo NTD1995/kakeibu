@@ -47,13 +47,16 @@
               <%# 検索フォーム表示 %> 
               <%= render 'public/searches/form' %>           
             </li>
-            <%# タグ検索フォーム表示 %> 
-            <div class="search_form">
-              <%= form_with url: "#" do |form| %>
-                <%= form.text_field :keyword, placeholder: "search" %>
-                <i class="fa-solid fa-tag"></i>
+            <li>
+              <%# 項目絞り込み検索フォーム表示 %> 
+              <%= form_with(url: filter_path, method: :get, local: true) do %>
+                <%= select_tag :item_id, options_from_collection_for_select(Item.all, :id, :name, params[:item_id]), include_blank: "すべて" %>
+                <%= button_tag type: "submit", class: "btn btn-light p-0 m-0" do %>
+                  <i class="fa-solid fa-filter"></i>
+                  <p>絞り込む</P>
+                <% end %>               
               <% end %>
-            </div>         
+            </li>
 
           <%# 管理者ログイン時のヘッダー %>
           <% elsif admin_signed_in? %>          
@@ -95,14 +98,16 @@
             <li>
               <%# 検索フォーム表示 %> 
               <%= render 'admin/searches/form' %>           
-            </li>
-            <%# タグ検索フォーム表示 %> 
-            <div class="search_form">
-              <%= form_with url: "#" do |form| %>
-                <%= form.text_field :keyword, placeholder: "search" %>
-                <i class="fa-solid fa-tag"></i>
+            <li>
+              <%# 項目絞り込み検索フォーム表示 %> 
+              <%= form_with(url: filter_path, method: :get, local: true) do %>
+                <%= select_tag :item_id, options_from_collection_for_select(Item.all, :id, :name, params[:item_id]), include_blank: "すべて" %>
+                <%= button_tag type: "submit", class: "btn btn-light p-0 m-0" do %>
+                  <i class="fa-solid fa-filter"></i>
+                  <p>絞り込む</P>
+                <% end %>               
               <% end %>
-            </div>
+            </li>
 
           <%# ユーザー非ログイン時のヘッダー %>
           <% else %>

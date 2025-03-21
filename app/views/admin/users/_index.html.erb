@@ -1,4 +1,4 @@
-<%# ユーザーの検索結果一覧%>
+<!-- ユーザーの検索結果一覧 -->
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
@@ -8,10 +8,12 @@
             <th>ユーザーID</th>
             <th>ユーザー画像</th>
             <th>名前</th>
-            <th>ユーザーステータス</th>
+            <th>フォロー数</th>
+            <th>フォロワー数</th>
             <% if btn %>
               <th>操作</th>
             <% end %>
+            <th>ユーザーステータス</th>
           </tr>
         </thead>
         <tbody>
@@ -28,14 +30,16 @@
               <td>
                 <%= link_to user.name, admin_user_path(user) %>
               </td>
+              <td><%= link_to user.followeds.count, followeds_admin_user_path(user) %></td>
+              <td><%= link_to user.followers.count, followers_admin_user_path(user) %></td>              
+              <% if btn %> 
+                <td><%= render "admin/relationships/btn", user: user, type: type, host: host %></td>
+              <% end %>
               <% if user.is_active? %>
                 <td class="text-success" style="font-weight: bold;">有効</td>
               <% else %>
                 <td class="text-black-50" style="font-weight: bold;">退会</td>
               <% end %> 
-              <% if btn %> 
-                <td><%= render "admin/relationships/btn", user: user, type: type, host: host %></td>
-              <% end %>
             </tr>
           <% end %>
         </tbody>
