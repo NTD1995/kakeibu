@@ -37,9 +37,9 @@
               <td><%= link_to user.followers.count, followers_admin_user_path(user) %></td>
               <td>
                 <%= form_with(url: admin_user_relationships_path(user), method: :post) do |form| %>
-                  <%= form.hidden_field :host_id, value: user.id %>
+                  <%= form.hidden_field :user_id, value: user.id %>
                   <% followed_ids = user.followeds.pluck(:id) %>
-                  <%= form.select :user_id, @users.where.not(id: user.id).where.not(id: followed_ids).map { |u| [u.name, u.id] }, prompt: "フォローするユーザーを選択", class: "form-control" %>
+                  <%= form.select :followed_id, @users.where.not(id: user.id).where.not(id: followed_ids).map { |u| [u.name, u.id] }, prompt: "フォローするユーザーを選択", class: "form-control" %>
                   <%= form.submit "フォローする", class: "btn btn-success" %>
                 <% end %>
               </td>
