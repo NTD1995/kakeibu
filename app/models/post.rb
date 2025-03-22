@@ -41,4 +41,7 @@ class Post < ApplicationRecord
     favorites.exists?(admin_id: admin.id)
   end
  
+  # 日付ごとの表示
+  scope :created_n_days_ago, ->(n) { where(created_at: n.days.ago.all_day) }
+
 end

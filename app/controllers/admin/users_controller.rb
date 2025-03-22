@@ -93,6 +93,16 @@ class Admin::UsersController < ApplicationController
     @users = @user.followeds.page(params[:page])
   end
 
+  # 投稿一覧の収支金額の１ヶ月間の表示
+  def get_month_data
+    user = User.find(params[:user_id])
+    date = params[:date]
+    income = user.posts.where(created_at: date, category: "income").sum(:price)
+    expense = user.posts.where(created_at: date, category: "expense").sum(:price)
+    balance = income - expense
+    render json: { income: income, expense: expense, balance: balance }
+  end
+
     private
 
   def user_params
