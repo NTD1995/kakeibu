@@ -5,7 +5,32 @@ class Public::PostsController < ApplicationController
 
   # 投稿一覧画面
   def index
-    @posts = Post.all.includes(:item).order(created_at: :desc).page(params[:page])
+    case params[:sort]
+    # いいね数多い順
+    when 'favorites' 
+      @posts = Post.left_joins(:favorites)
+                 .group(:id)
+                 .includes(:item, :post_comments)
+                 .order('COUNT(favorites.id) DESC', 'created_at DESC')
+                 .page(params[:page])
+    # コメント数多い順            
+    when 'comments'
+      @posts = Post.left_joins(:post_comments)
+                 .group(:id)
+                 .includes(:item, :post_comments)
+                 .order(('COUNT(post_comments.id) DESC, created_at DESC'))
+                 .page(params[:page])
+    # 金額の高い順
+    when 'prices'
+      post_income = Post.includes(:item, :post_comments).where(category: "income").order("price DESC")
+      post_expense = Post.includes(:item, :post_comments).where(category: "expense").order("price ASC")
+      @posts = Kaminari.paginate_array(post_income + post_expense).page(params[:page])                       
+    # デフォルト: 新しい日付順                  
+    else 
+      @posts = Post.includes(:item, :post_comments)
+                   .order(created_at: :desc)
+                   .page(params[:page])                
+    end
   end
 
   # 新規投稿画面
