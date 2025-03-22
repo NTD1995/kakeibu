@@ -90,4 +90,190 @@
     </div>
   </div>
 
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h4><strong>１ヶ月間の収入金額と支出金額と収支合計</strong></h4>
+
+        <!-- 月選択フォーム -->
+        <form id="monthSelectorForm">
+          <div class="form-group">
+            <!--  過去12ヶ月分の年月を自動生成し、選択肢を作成 -->
+            <select class="form-control" id="month" name="month">
+              <% (0..11).each do |n| %>
+                <!-- 当月を基準にnヶ月前を取得 -->
+                <% month = (Date.today.beginning_of_month - n.months) %>
+                <option value="<%= month.strftime("%Y-%m") %>"><%= month.strftime("%Y年%m月") %></option>
+              <% end %>
+            </select>
+          </div>
+          <!-- ボタンを押すと、選択した月のデータを取得する -->
+          <button type="button" class="btn btn-primary" id="selectMonthBtn">月を選択</button>
+        </form>
+
+        <!-- １ヶ月間の収入金額、支出金額、収支合計の表 -->
+        <table class='table table-bordered'>
+          <thead>
+            <tr>
+              <th>日付</th>
+              <th>収入金額</th>
+              <th>支出金額</th>
+              <th>収支合計</th>
+            </tr>
+          </thead>
+          <tbody id="monthDataTable">
+          </tbody>
+        </table>
+          
+        <!-- １ヶ月間の収入金額、支出金額、収支合計のグラフ -->
+        <canvas id="myLineChart"></canvas>
+
+        <script>
+          // ページがリロードされなくてもイベントが発生した際に、あらかじめ設定しておいた処理を実行する
+          $(document).on('turbolinks:load', function() {
+
+            // 選択された月のデータを取得し、表とグラフを更新する関数
+            function updateDataForMonth(selectedMonth) {
+              const selectedDate = new Date(selectedMonth + "-01"); // 選択された月の初日
+              const lastDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 0); // 選択された月の最終日
+              const daysInMonth = lastDate.getDate(); //日数を取得 
+
+              // データ格納用の配列を初期化
+              let labels = []; //グラフのX軸（日付）用のラベル
+              let incomeData = []; //各日の収入データ
+              let expenseData = []; // 各日の支出データ
+              let balanceData = []; //各日の収支合計データ
+              let totalIncome = 0;  // 収入合計
+              let totalExpense = 0; // 支出合計
+              let totalBalance = 0; // 収支合計              
+
+              // 表データのリセット
+              $('#monthDataTable').empty();
+
+              // 選択された月の日付ごとにデータを取得
+              for (let day = 1; day <= daysInMonth; day++) {
+                const currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), day);
+                const formattedDate = currentDate.toLocaleString("ja-JP",{year:"numeric",month:"2-digit",day:"2-digit"}).split(' ')[0];
+                labels[labels.length] = formattedDate;
+
+                // データ取得
+                $.ajax({
+                  url: '/get_month_data',
+                  type: 'GET',
+                  async: false,
+                  data: { date: formattedDate }, // その日の収入・支出・収支合計を取得
+                  success: function(data) {                 
+                    let income = data.income;
+                    let expense = -data.expense;
+                    let balance = data.balance;
+
+                    // 取得したデータを各配列に追加
+                    incomeData.push(income);
+                    expenseData.push(expense);
+                    balanceData.push(balance);
+                    totalIncome += income;
+                    totalExpense += -expense;
+                    totalBalance += balance;
+
+                    // 取得したデータをテーブルのtbodyに追加
+                    $('#monthDataTable').append(`
+                      <tr>
+                        <td>${formattedDate}</td>
+                        <td>${data.income.toLocaleString()}円</td>
+                        <td>${data.expense.toLocaleString()}円</td>
+                        <td>${data.balance.toLocaleString()}円</td>
+                      </tr>
+                    `);
+                  }
+                });
+              }
+
+              // 合計
+              $('#monthDataTable').append(`
+                <tr style="font-weight: bold;">
+                  <td>合計</td>
+                  <td>${totalIncome.toLocaleString()}円</td>
+                  <td>${totalExpense.toLocaleString()}円</td>
+                  <td>${totalBalance.toLocaleString()}円</td>
+                </tr>
+              `);
+
+              // グラフを描く
+              var ctx = document.getElementById("myLineChart");
+              var myLineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                  labels: labels,
+                  datasets: [
+                    {
+                      label: '収入',
+                      data: 
+                        incomeData
+                      ,
+                      borderColor: "rgba(0, 128, 0, 1)",
+                      backgroundColor: "rgba(0, 128, 0, 0.2)",
+                      tension: 0.4
+                    },
+                    {
+                      label: '支出',
+                      data: 
+                        expenseData
+                      ,
+                      borderColor: "rgba(255, 0, 0, 1)",
+                      backgroundColor: "rgba(255, 0, 0, 0.2)",
+                      tension: 0.4
+                    },
+                    {
+                      label: '収支合計',
+                      data: 
+                        balanceData
+                      ,
+                      borderColor: "rgba(0, 0, 255, 1)",
+                      backgroundColor: "rgba(0, 0, 255, 0.2)",
+                      tension: 0.4
+                    } 
+                  ],
+                },
+                //  X軸・Y軸の設定
+                options: {
+                  responsive: true,
+                  scales: {
+                    x: {
+                      type: 'time',
+                      time: {
+                        unit: 'day',
+                        tooltipFormat: 'll',
+                        displayFormats: {
+                          day: 'YYYY/MM/DD'
+                        }
+                      },
+                      title: {
+                        display: true,
+                        text: '日付'
+                      }
+                    },
+                    y: {
+                      min: -1000000,
+                      max: 1000000,
+                      title: {
+                        display: true,
+                        text: '金額 (円)'
+                      }
+                    }
+                  }
+                }
+              });
+            }
+
+            // 月選択ボタンをクリックした時に選択された月のデータを取得・表示
+            $('#selectMonthBtn').on('click', function() {
+              const selectedMonth = $('#month').val(); 
+              updateDataForMonth(selectedMonth);
+            });
+          });
+        </script>
+
+    </div>
+  </div>
+
 </div>

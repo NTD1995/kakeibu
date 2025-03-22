@@ -36,6 +36,8 @@ Rails.application.routes.draw do
   end
   # 検索一覧
   get "search", to: "public/searches#search", as: "search"
+  # 投稿一覧の収支金額の１ヶ月間の表示
+  get "get_month_data", to: "public/posts#get_month_data", as: "get_month_data"
   # 項目絞り込み一覧
   get "filter", to: "public/filters#filter", as: "filter"
 
@@ -51,7 +53,10 @@ Rails.application.routes.draw do
 
   namespace :admin do
     # ユーザー一覧、詳細、編集、更新
-    resources :users, only: [:index, :show, :edit, :update]
+    resources :users, only: [:index, :show, :edit, :update] do
+    # 投稿一覧の収支金額の１ヶ月間の表示  
+      get "get_month_data"
+    end  
     # 投稿詳細、編集、更新、削除
     resources :posts, only: [:show, :edit, :update, :destroy]
     # 項目一覧、追加、編集、更新、削除
