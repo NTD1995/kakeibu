@@ -2,11 +2,6 @@ class Admin::PostsController < ApplicationController
   before_action :authenticate_admin!
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
-  # 投稿一覧画面
-  def index
-    @posts = Post.all.includes(:item).page(params[:page])
-  end
-
   # 投稿詳細画面
   def show
   end

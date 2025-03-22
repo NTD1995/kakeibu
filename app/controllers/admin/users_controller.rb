@@ -10,7 +10,61 @@ class Admin::UsersController < ApplicationController
 
   # ユーザー詳細画面
   def show
-    @user_posts = @user.posts.order(created_at: :desc).page(params[:page]).per(10)
+    case params[:sort]
+    # いいね数多い順
+    when 'favorites' 
+      @user_posts = Post.left_joins(:favorites)
+                .group(:id)
+                .order('COUNT(favorites.id) DESC', 'created_at DESC')
+                .page(params[:page])
+    # コメント数多い順            
+    when 'comments'
+      @user_posts = Post.left_joins(:post_comments)
+                .group(:id)
+                .order(('COUNT(post_comments.id) DESC, created_at DESC'))
+                .page(params[:page])               
+    # 金額の高い順
+    when 'prices'
+      post_income = Post.includes(:item).where(category: "income").order("price DESC")
+      post_expense = Post.includes(:item).where(category: "expense").order("price ASC")
+      @user_posts = Kaminari.paginate_array(post_income + post_expense).page(params[:page])
+    # 日付の新しい順
+    when 'date'
+      @user_posts = Post
+                  .order(created_at: :desc)
+                  .page(params[:page])                                              
+    # デフォルト: 古いID順                  
+    else
+      @user_posts = User.find(params[:id]).posts.order(id: :asc).page(params[:page])
+    end
+    case params[:sort_other]
+    # いいね数多い順
+    when 'favorites' 
+      @posts = Post.where.not(user: @user).left_joins(:favorites)
+                .group(:id)
+                .order('COUNT(favorites.id) DESC', 'created_at DESC')
+                .page(params[:other_page])                
+    # コメント数多い順            
+    when 'comments'
+      @posts = Post.where.not(user: @user).left_joins(:post_comments)
+                .group(:id)
+                .order(('COUNT(post_comments.id) DESC, created_at DESC'))
+                .page(params[:other_page])                
+    # 金額の高い順
+    when 'prices'
+      post_income = Post.where.not(user: @user).includes(:item).where(category: "income").order("price DESC")
+      post_expense = Post.where.not(user: @user).includes(:item).where(category: "expense").order("price ASC")
+      @posts = Kaminari.paginate_array(post_income + post_expense).page(params[:other_page])      
+    # 日付の新しい順
+    when 'date'
+      @posts = Post
+                  .where.not(user: @user)
+                  .order(created_at: :desc)
+                  .page(params[:other_page])                                                
+    # デフォルト: 古いID順                  
+    else
+      @posts = Post.where.not(user: @user).order(id: :asc).page(params[:other_page])     
+    end
   end
 
   # ユーザー編集画面
