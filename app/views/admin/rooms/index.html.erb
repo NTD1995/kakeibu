@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row" style="margin: 20px;">
+    <div class="col-lg-12">
+      <h4 style="margin: 0;"><strong>ルーム一覧</strong></h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <table class="table table-bordered mt-3">
+        <thead>
+          <tr>
+            <th>ルームID</th>
+            <th>ルーム名</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @rooms.each do |room| %>
+            <tr>
+              <td><%= room.id %></td>
+              <td>
+                <% @entries.each do |e| %>
+                  <% unless e.user == current_user %>
+                    <h4><strong><%= e.user.name %>さん</strong></h4>
+                  <% end %>
+                <% end %>
+              </td>   
+              <td><%= link_to 'ルーム詳細へ', admin_room_path(room), class: "btn btn-primary" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>    
+

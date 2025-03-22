@@ -6,7 +6,7 @@
   </div>
   
   <div class="row mb-3">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
       <div class="d-flex justify-content-left">
         <h5 style="margin: 10px;"><strong>ユーザー情報</strong></h5>
         <%= link_to "ユーザー一覧に戻る", admin_users_path, class: "btn btn-primary ml-5 mr-2 px-2 py-2" %>
@@ -15,69 +15,71 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-lg-8">
-      <div class="user-details">
+<div class="row">
+  <div class="col-lg-12">
+    <div class="user-details">
 
-        <div class="row">
-          <div class="col-md-4">
-            <h6><strong>ユーザーID</strong></h6>
-          </div>
-          <div class="col-md-8">
-            <p><%= @user.id %></p>
-          </div>
+      <div class="row mt-3">
+        <div class="col-md-4">
+          <h6><strong>ユーザーID</strong></h6>
+          <p><%= @user.id %></p>
         </div>
-
-        <div class="row">
-          <div class="col-md-4">
-            <h6><strong>ユーザー画像</strong></h6>
-          </div>
-          <div class="col-md-8">
-            <% if @user.image.attached? %>
-              <%= image_tag @user.image, alt: @user.name, class: "rounded-circle", width: 100, height: 100 %>
-            <% else %>
-              <%= image_tag "no_image.jpg", alt: "no image", class: "rounded-circle", width: 100, height: 100 %>
-            <% end %>
-          </div>
-        </div>
-        
-        <div class="row">
-          <div class="col-md-4">
-            <h6><strong>名前</strong></h6>
-          </div>
-          <div class="col-md-8">
-            <p><%= @user.name %></p>
-          </div>
-        </div>
-        
-        <div class="row">
-          <div class="col-md-4">
-            <h6><strong>自己紹介文</strong></h6>
-          </div>
-          <div class="col-md-8">
-            <p><%= @user.introduction %></p>
-          </div>
+      
+        <div class="col-md-4">
+          <h6><strong>ユーザー画像</strong></h6>
+          <% if @user.image.attached? %>
+            <%= image_tag @user.image, alt: @user.name, class: "rounded-circle", width: 100, height: 100 %>
+          <% else %>
+            <%= image_tag "no_image.jpg", alt: "no image", class: "rounded-circle", width: 100, height: 100 %>
+          <% end %>
         </div>
 
-        <div class="row">
-          <div class="col-md-4">
-            <h6><strong>ユーザーステータス</strong></h6>
-          </div>
-          <div class="col-md-8">
-            <% if @user.is_active? %>
-              <p class="text-success" style="font-weight: bold;">有効</p>
-            <% else %>
-              <p class="text-black-50" style="font-weight: bold;">退会</p>
-            <% end %>
-          </div>
+        <div class="col-md-4">
+          <h6><strong>名前</strong></h6>
+          <p><%= @user.name %></p>
         </div>
-              
       </div>
+
+      <div class="row mt-3">
+        <div class="col-md-4">
+          <h6><strong>自己紹介文</strong></h6>
+          <p><%= @user.introduction %></p>
+        </div>
+
+        <div class="col-md-4">
+          <h6><strong>メールアドレス</strong></h6>
+          <p><%= @user.email %></p>
+        </div>
+    
+        <div class="col-md-4">
+          <h6><strong>ユーザーステータス</strong></h6>
+          <% if @user.is_active? %>
+            <p class="text-success" style="font-weight: bold;">有効</p>
+          <% else %>
+            <p class="text-black-50" style="font-weight: bold;">退会</p>
+          <% end %>
+        </div>
+      </div>  
+
+      <div class="row mt-3">
+        <div class="col-md-4">
+          <h6><strong>フォロー数</strong></h6>
+          <p><%= link_to @user.followeds.count, followeds_admin_user_path(@user) %></p>
+        </div>
+
+        <div class="col-md-4">
+          <h6><strong>フォロワー数</strong></h6>
+          <p><%= link_to @user.followers.count, followers_admin_user_path(@user) %></p>
+        </div>
+      </div>
+
     </div>
-  </div> 
+  </div>
+</div>
+
 
   <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
       <h5 style="margin: 10px;"><strong>投稿一覧</strong></h5>
       <table class="table table-bordered">
         <thead>
@@ -114,7 +116,7 @@
   </div>
 
   <div class="row">
-    <div class="col-lg-8 d-flex justify-content-center">
+    <div class="col-lg-12 d-flex justify-content-center">
       <%= paginate @user_posts %>
     </div>
   </div>
@@ -306,7 +308,7 @@
   </div>
   
   <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
       <h5 style="margin: 10px;"><strong><%= @user.name %>さん以外の投稿一覧</strong></h5>
       <table class="table table-bordered">
         <thead>
@@ -343,7 +345,7 @@
   </div>
 
   <div class="row">
-    <div class="col-lg-8 d-flex justify-content-center">
+    <div class="col-lg-12 d-flex justify-content-center">
       <%= paginate @user_posts %>
     </div>
   </div>

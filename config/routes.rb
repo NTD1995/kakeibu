@@ -18,8 +18,13 @@ Rails.application.routes.draw do
       get "followers", to: "public/relationships#followers", as: "followers"
   	  get "followeds", to: "public/relationships#followeds", as: "followeds"
       # いいねした一覧
-      get "favorites", to: "public/favorites#index", as: "favorites"    
+      get "favorites", to: "public/favorites#index", as: "favorites"
   end
+    # ルームを作成、詳細
+  resources :rooms, controller: "public/rooms", only: [:create, :show] do
+    # メッセージを作成      
+    resources :messages, controller: "public/messages", only: [:create]
+  end  
   # 投稿
   scope module: :public do
     resources :posts do
@@ -33,6 +38,8 @@ Rails.application.routes.draw do
   get "search", to: "public/searches#search", as: "search"
   # 投稿一覧の収支金額の１ヶ月間の表示
   get "get_month_data", to: "public/posts#get_month_data", as: "get_month_data"
+  # 項目絞り込み一覧
+  get "filter", to: "public/filters#filter", as: "filter"
 
 
   # 管理者側
@@ -68,6 +75,14 @@ Rails.application.routes.draw do
         end      
       resources :relationships, only: [:create, :destroy]
     end
+    # ルーム一覧、詳細、削除
+    resources :rooms, only: [:index, :show, :destroy] do
+    # メッセージを削除      
+    resources :messages, only: [:destroy]
+    end
+    # 項目絞り込み一覧
+    get "filter", to: "filters#filter", as: "filter"
+
 
   end
 

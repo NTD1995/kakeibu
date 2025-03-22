@@ -17,6 +17,9 @@ class User < ApplicationRecord
   has_many :followeds, through: :active_relationships, source: :followed
   # フォローされているユーザーを取得
   has_many :followers, through: :passive_relationships, source: :follower
+  has_many :entries, dependent: :destroy
+  has_many :messages, dependent: :destroy
+  has_many :rooms, through: :entries
 
   # バリデーション設定
   validates :name, presence: true
