@@ -84,6 +84,12 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-lg-12 d-flex justify-content-center">
+      <%= paginate @user_posts %>
+    </div>
+  </div>
+
 
   <div class="row">
     <div class="col-lg-12">
@@ -137,6 +143,9 @@
               let incomeData = []; //各日の収入データ
               let expenseData = []; // 各日の支出データ
               let balanceData = []; //各日の収支合計データ
+              let totalIncome = 0;  // 収入合計
+              let totalExpense = 0; // 支出合計
+              let totalBalance = 0; // 収支合計              
 
               // 表データのリセット
               $('#monthDataTable').empty();
@@ -161,7 +170,10 @@
                     // 取得したデータを各配列に追加
                     incomeData.push(income);
                     expenseData.push(expense);
-                    balanceData.push(balance);         
+                    balanceData.push(balance);
+                    totalIncome += income;
+                    totalExpense += -expense;
+                    totalBalance += balance;
 
                     // 取得したデータをテーブルのtbodyに追加
                     $('#monthDataTable').append(`
@@ -175,6 +187,16 @@
                   }
                 });
               }
+
+              // 合計
+              $('#monthDataTable').append(`
+                <tr style="font-weight: bold;">
+                  <td>合計</td>
+                  <td>${totalIncome.toLocaleString()}円</td>
+                  <td>${totalExpense.toLocaleString()}円</td>
+                  <td>${totalBalance.toLocaleString()}円</td>
+                </tr>
+              `);
 
               // グラフを描く
               var ctx = document.getElementById("myLineChart");
@@ -251,12 +273,6 @@
           });
         </script>
 
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-lg-12 d-flex justify-content-center">
-      <%= paginate @user_posts %>
     </div>
   </div>
 
