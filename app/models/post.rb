@@ -9,7 +9,7 @@ class Post < ApplicationRecord
   validates :created_at, presence: true
   validates :content, presence: true
   # カラムが数値であること
-  validates :price, presence: true, numericality: true
+  validates :price, presence: true, numericality: { only_integer: true, greater_than: 0}
   # 収支区分が収入または支出であること
   validates :category, presence: true, inclusion: { in: ["income", "expense"] }
 

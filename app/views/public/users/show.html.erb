@@ -74,7 +74,21 @@
 
   <div class="row">
     <div class="col-lg-12">
-      <h5 style="margin: 10px;"><strong>投稿一覧</strong></h5>
+      <h4><strong>投稿一覧</strong></h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <%= link_to "新しい投稿順", user_path(sort: 'date'), class: "btn btn-primary mb-2 mr-2" %>
+      <%= link_to "金額高い順", user_path(user, sort: 'prices'), class: "btn btn-primary mb-2 mr-2" %>
+      <%= link_to "コメント数多い順", user_path(sort: 'comments'), class: "btn btn-primary mb-2 mr-2" %> 
+      <%= link_to "いいね数多い順", user_path(sort: 'favorites'), class: "btn btn-primary mb-2" %>    
+    </div>
+  </div>
+      
+  <div class="row">
+    <div class="col-lg-12">
       <table class="table table-bordered">
         <thead>
           <tr>
