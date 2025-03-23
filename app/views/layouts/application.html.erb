@@ -14,12 +14,9 @@
 
   <body>
     <%= render 'layouts/header' %>
-    <% if notice %>
-      <p class="notice alert alert-success"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
+    <div id="flash-message">
+      <%= render 'layouts/flash' %>
+    </div>
     <main>
       <%= yield %>
     </main>

@@ -1,4 +1,6 @@
 class Admin::FiltersController < ApplicationController
+  before_action :authenticate_admin!
+
   def filter
     @posts = Post.all
     @items = Item.all  

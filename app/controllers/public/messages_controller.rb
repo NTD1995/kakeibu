@@ -7,8 +7,10 @@ class Public::MessagesController < ApplicationController
       @message = Message.new(message_params)
       @message.user_id = current_user.id
       if @message.save
+        flash.now[:notice] = "メッセージの投稿に成功しました。"
         render :create
       else
+        flash.now[:alert] = "メッセージの投稿に失敗しました。"
         render :validater, status: :unprocessable_entity
       end
     else

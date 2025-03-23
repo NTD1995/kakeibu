@@ -134,21 +134,6 @@
     </div>
   </div>
 
-  <div class="row" style="margin: 10px;">
-    <div class="col-lg-12">
-      <h5><strong><%= @user.name %>さん以外の投稿一覧</strong></h5>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-lg-12">
-      <%= link_to "新しい投稿順", admin_user_path(sort_other: 'date'), class: "btn btn-primary mb-2 mr-2" %>
-      <%= link_to "金額高い順", admin_user_path(sort_other: 'prices'), class: "btn btn-primary mb-2 mr-2" %>
-      <%= link_to "コメント数多い順", admin_user_path(sort_other: 'comments'), class: "btn btn-primary mb-2 mr-2" %> 
-      <%= link_to "いいね数多い順", admin_user_path(sort_other: 'favorites'), class: "btn btn-primary mb-2" %>    
-    </div>
-  </div>
-
   <div class="row">
     <div class="col-lg-12">
       <h4><strong>１ヶ月間の収入金額と支出金額と収支合計</strong></h4>
@@ -334,6 +319,21 @@
     </div>
   </div>
   
+  <div class="row" style="margin: 10px;">
+    <div class="col-lg-12">
+      <h5><strong><%= @user.name %>さん以外の投稿一覧</strong></h5>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <%= link_to "新しい投稿順", admin_user_path(sort_other: 'date'), class: "btn btn-primary mb-2 mr-2" %>
+      <%= link_to "金額高い順", admin_user_path(sort_other: 'prices'), class: "btn btn-primary mb-2 mr-2" %>
+      <%= link_to "コメント数多い順", admin_user_path(sort_other: 'comments'), class: "btn btn-primary mb-2 mr-2" %> 
+      <%= link_to "いいね数多い順", admin_user_path(sort_other: 'favorites'), class: "btn btn-primary mb-2" %>    
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-lg-12">
       <table class="table table-bordered">

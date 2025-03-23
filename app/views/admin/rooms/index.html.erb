@@ -20,7 +20,7 @@
             <tr>
               <td><%= room.id %></td>
               <td>
-                <% @entries.each do |e| %>
+                <% room.entries.each do |e| %>
                   <% unless e.user == current_user %>
                     <h4><strong><%= e.user.name %>さん</strong></h4>
                   <% end %>

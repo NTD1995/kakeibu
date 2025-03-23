@@ -4,18 +4,19 @@ class Admin::ItemsController < ApplicationController
 
   # 項目一覧画面
   def index
+    @new_item = Item.new
     @income_items = Item.income
     @expense_items = Item.expense
-
-    @new_item = Item.new
   end
 
   # 項目新規追加処理
   def create
-    @item = Item.new(item_params)
-    if @item.save
+    @new_item = Item.new(item_params)
+    if @new_item.save
       redirect_to admin_items_path, notice: "項目が追加されました。"
     else
+      @income_items = Item.where(category: 'income')      
+      @expense_items = Item.where(category: 'expense')
       flash.now[:alert] = "項目が追加されませんでした。"
       render :index
     end

@@ -1,1 +1,2 @@
-$('.errors').html("<%= j(render 'public/shared/error_messages', resource: @message) %>");
+$('#errors').html("<%= j(render 'public/shared/error_messages', resource: @message) %>");
+$('#flash-message').html("<%= j(render 'layouts/flash') %>")

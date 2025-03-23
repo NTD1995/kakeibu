@@ -1,4 +1,6 @@
 class Public::FiltersController < ApplicationController
+  before_action :authenticate_user!
+
   def filter
     @posts = Post.all.order(created_at: :desc)
     @items = Item.all  

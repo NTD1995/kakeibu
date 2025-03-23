@@ -20,7 +20,7 @@ class Admin::RoomsController < ApplicationController
     @room = Room.find_by(id: params[:id])
     if @room
       @room.destroy
-      redirect_to admin_rooms_path, notice: 'ルームが削除されました。'
+      redirect_to admin_rooms_path, alert: 'ルームを削除しました。'
     else
       redirect_to admin_rooms_path, alert: 'ルームが見つかりません。'
     end
