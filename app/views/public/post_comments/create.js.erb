@@ -1,3 +1,5 @@
 $('#post_comment_comment').val("");
 $('#post-comments-counter').html("<%= j(render 'public/post_comments/counter', post: @comment.post) %>");
 $('#post-comments-index').html("<%= j(render 'public/post_comments/index', post: @comment.post) %>");
+$('#flash-message').html("<%= j(render 'layouts/flash') %>");
+$("#comments-error").html("<%= j(render 'public/shared/error_messages', resource: @comment) %>");
