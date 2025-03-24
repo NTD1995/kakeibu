@@ -85,8 +85,8 @@ class Public::PostsController < ApplicationController
   # 投稿一覧の収支金額の１ヶ月間の表示
   def get_month_data
     date = params[:date]
-    income = current_user.posts.where(created_at: date, category: "income").sum(:price)
-    expense = current_user.posts.where(created_at: date, category: "expense").sum(:price)
+    income = current_user.posts.where(created_at: date.in_time_zone.all_day, category: "income").sum(:price)
+    expense = current_user.posts.where(created_at: date.in_time_zone.all_day, category: "expense").sum(:price)
     balance = income - expense
     render json: { income: income, expense: expense, balance: balance }
   end
