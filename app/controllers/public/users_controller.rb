@@ -5,29 +5,36 @@ class Public::UsersController < ApplicationController
 
   # マイページ
   def mypage
+    @user_posts = @user.posts.includes(:item, :post_comments)
+
+    # 収入と支出と収支の合計を計算
+    @income_total = @user_posts.where(category: "income").sum(:price)
+    @expense_total = @user_posts.where(category: "expense").sum(:price)
+    @balance_total = @income_total - @expense_total
+
     case params[:sort]
     # いいね数多い順
     when 'favorites' 
-      @user_posts = Post.left_joins(:favorites)
+      @user_posts = @user_posts.left_joins(:favorites)
                  .group(:id)
                  .includes(:item, :post_comments)
                  .order('COUNT(favorites.id) DESC', 'created_at DESC')
                  .page(params[:page])
     # コメント数多い順            
     when 'comments'
-      @user_posts = Post.left_joins(:post_comments)
+      @user_posts = @user_posts.left_joins(:post_comments)
                  .group(:id)
                  .includes(:item, :post_comments)
                  .order(('COUNT(post_comments.id) DESC, created_at DESC'))
                  .page(params[:page])
     # 金額の高い順
     when 'prices'
-      post_income = Post.includes(:item, :post_comments).where(category: "income").order("price DESC")
-      post_expense = Post.includes(:item, :post_comments).where(category: "expense").order("price ASC")
+      post_income = @user_posts.includes(:item, :post_comments).where(category: "income").order("price DESC")
+      post_expense = @user_posts.includes(:item, :post_comments).where(category: "expense").order("price ASC")
       @user_posts = Kaminari.paginate_array(post_income + post_expense).page(params[:page])                       
     # デフォルト: 新しい日付順                  
     else 
-      @user_posts = Post.includes(:item, :post_comments)
+      @user_posts = @user_posts.includes(:item, :post_comments)
                    .order(created_at: :desc)
                    .page(params[:page])                
     end  
@@ -41,30 +48,30 @@ class Public::UsersController < ApplicationController
   # ユーザー詳細画面
   def show
     @user = User.find(params[:id])
-
+    @user_posts = @user.posts.includes(:item, :post_comments)
     case params[:sort]
     # いいね数多い順
     when 'favorites' 
-      @user_posts = Post.left_joins(:favorites)
+      @user_posts = @user_posts.left_joins(:favorites)
                  .group(:id)
                  .includes(:item, :post_comments)
                  .order('COUNT(favorites.id) DESC', 'created_at DESC')
                  .page(params[:page])
     # コメント数多い順            
     when 'comments'
-      @user_posts = Post.left_joins(:post_comments)
+      @user_posts = @user_posts.left_joins(:post_comments)
                  .group(:id)
                  .includes(:item, :post_comments)
                  .order(('COUNT(post_comments.id) DESC, created_at DESC'))
                  .page(params[:page])
     # 金額の高い順
     when 'prices'
-      post_income = Post.includes(:item, :post_comments).where(category: "income").order("price DESC")
-      post_expense = Post.includes(:item, :post_comments).where(category: "expense").order("price ASC")
+      post_income = @user_posts.includes(:item, :post_comments).where(category: "income").order("price DESC")
+      post_expense = @user_posts.includes(:item, :post_comments).where(category: "expense").order("price ASC")
       @user_posts = Kaminari.paginate_array(post_income + post_expense).page(params[:page])                       
     # デフォルト: 新しい日付順                  
     else 
-      @user_posts = Post.includes(:item, :post_comments)
+      @user_posts = @user_posts.includes(:item, :post_comments)
                    .order(created_at: :desc)
                    .page(params[:page])                
     end
