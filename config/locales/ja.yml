@@ -14,14 +14,20 @@ ja:
     models:
       item: "項目"  
       post_comment: "コメント"
-      message: "メッセージ"     
+      message: "メッセージ"
+      post: "投稿"     
     attributes:
       item:
         name: "名前"     
       post_comment:
         comment: "コメント"
       message:
-        content: "メッセージ"                
+        content: "メッセージ"
+      post:
+        created_at: "日付"
+        content: "内容"
+        price: "値段"
+        category: "収支区分"                   
   date:
     abbr_day_names:
     - 日
