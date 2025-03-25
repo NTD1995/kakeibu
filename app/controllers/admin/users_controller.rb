@@ -10,33 +10,42 @@ class Admin::UsersController < ApplicationController
 
   # ユーザー詳細画面
   def show
+    @user_posts = @user.posts.includes(:item, :post_comments)
+
+    # 収入と支出と収支の合計を計算
+    @income_total = @user_posts.where(category: "income").sum(:price)
+    @expense_total = @user_posts.where(category: "expense").sum(:price)
+    @balance_total = @income_total - @expense_total
+    
+    # 選択したユーザーの投稿一覧の並び替え
     case params[:sort]
     # いいね数多い順
     when 'favorites' 
-      @user_posts = Post.left_joins(:favorites)
+      @user_posts = @user.posts.left_joins(:favorites)
                 .group(:id)
                 .order('COUNT(favorites.id) DESC', 'created_at DESC')
                 .page(params[:page])
     # コメント数多い順            
     when 'comments'
-      @user_posts = Post.left_joins(:post_comments)
+      @user_posts = @user.posts.left_joins(:post_comments)
                 .group(:id)
                 .order(('COUNT(post_comments.id) DESC, created_at DESC'))
                 .page(params[:page])               
     # 金額の高い順
     when 'prices'
-      post_income = Post.includes(:item).where(category: "income").order("price DESC")
-      post_expense = Post.includes(:item).where(category: "expense").order("price ASC")
+      post_income = @user.posts.includes(:item).where(category: "income").order("price DESC")
+      post_expense = @user.posts.includes(:item).where(category: "expense").order("price ASC")
       @user_posts = Kaminari.paginate_array(post_income + post_expense).page(params[:page])
     # 日付の新しい順
     when 'date'
-      @user_posts = Post
+      @user_posts = @user.posts
                   .order(created_at: :desc)
                   .page(params[:page])                                              
     # デフォルト: 古いID順                  
     else
-      @user_posts = User.find(params[:id]).posts.order(id: :asc).page(params[:page])
+      @user_posts = @user.posts.order(id: :asc).page(params[:page])
     end
+    # 選択したユーザー以外の投稿一覧の並び替え
     case params[:sort_other]
     # いいね数多い順
     when 'favorites' 
@@ -57,10 +66,9 @@ class Admin::UsersController < ApplicationController
       @posts = Kaminari.paginate_array(post_income + post_expense).page(params[:other_page])      
     # 日付の新しい順
     when 'date'
-      @posts = Post
-                  .where.not(user: @user)
-                  .order(created_at: :desc)
-                  .page(params[:other_page])                                                
+      @posts = Post.where.not(user: @user)
+                   .order(created_at: :desc)
+                   .page(params[:other_page])                                                
     # デフォルト: 古いID順                  
     else
       @posts = Post.where.not(user: @user).order(id: :asc).page(params[:other_page])     
@@ -97,8 +105,8 @@ class Admin::UsersController < ApplicationController
   def get_month_data
     user = User.find(params[:user_id])
     date = params[:date]
-    income = user.posts.where(created_at: date, category: "income").sum(:price)
-    expense = user.posts.where(created_at: date, category: "expense").sum(:price)
+    income = user.posts.where(created_at: date.in_time_zone.all_day, category: "income").sum(:price)
+    expense = user.posts.where(created_at: date.in_time_zone.all_day, category: "expense").sum(:price)
     balance = income - expense
     render json: { income: income, expense: expense, balance: balance }
   end
