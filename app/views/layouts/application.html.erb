@@ -12,12 +12,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
   </head>
 
-  <body>
+  <body class="d-flex flex-column vh-100">
     <%= render 'layouts/header' %>
     <div id="flash-message">
       <%= render 'layouts/flash' %>
     </div>
-    <main>
+    <main class="flex-grow-1">
       <%= yield %>
     </main>
     <%= render 'layouts/footer' %>  
