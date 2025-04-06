@@ -67,4 +67,20 @@ class User < ApplicationRecord
   def followed_by?(user)
     active_relationships.find_by(followed_id: user.id).present?
   end
+
+  # ゲストユーザーの登録
+  GUEST_USER_EMAIL = "guest@guest"
+
+  def self.guest
+    find_or_create_by!(email: GUEST_USER_EMAIL) do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "ゲストユーザー"
+      user.introduction = "よろしくお願いします"
+    end
+  end
+
+  def guest_user?
+    email == GUEST_USER_EMAIL
+  end
+  
 end

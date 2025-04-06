@@ -2,6 +2,7 @@ class Public::UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:mypage, :index, :edit, :update, :destroy]
   before_action :authorize_user!, only: [:edit, :update, :destroy]
+  before_action :ensure_guest_user, only: [:edit]
 
   # マイページ
   def mypage
@@ -134,4 +135,13 @@ class Public::UsersController < ApplicationController
       redirect_to mypage_path, alert: "他のユーザーを編集・更新・削除する権限がありません。"
     end
   end
+
+  # ゲストユーザーがプロフィールを編集できないようにする
+  def ensure_guest_user
+    @user = User.find(params[:id])
+    if @user.guest_user?
+      redirect_to user_path(current_user) , alert: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
+    end
+  end  
+
 end

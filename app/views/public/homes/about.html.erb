@@ -32,11 +32,18 @@
           <p style="white-space: nowrap;">さあ、あなたもカケイブで家計管理をもっとスマートにしてみませんか？</p>
         </div>
         
-        <div class="text-center">
-          <%= link_to new_user_registration_path, class: "btn btn-success mb-5", style: "padding: 5px 60px;" do %>
-            <i class="fa-solid fa-user-plus"></i> 新規登録
+        <div class="d-flex justify-content-center mb-5">
+          <%= link_to users_guest_sign_in_path, class: "btn btn-secondary d-flex align-items-center justify-content-center mr-3", style: "padding: 5px 60px;" do %>
+            <i class="fa-solid fa-user-tie"></i>
+            <span style="white-space: nowrap;">ゲストログイン（閲覧用）</span>
+          <% end %>
+          <%= link_to new_user_registration_path, class: "btn btn-success d-flex align-items-center justify-content-center", style: "padding: 5px 60px;" do %>
+            <i class="fa-solid fa-user-plus"></i>
+            <span style="white-space: nowrap;">新規登録</span>
           <% end %>
         </div>
+
+
       </div>  
     </div>
   </div>
