@@ -4,6 +4,7 @@ class Post < ApplicationRecord
   belongs_to :item
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :notifications, as: :notifiable, dependent: :destroy  
 
   # カラムが空でないこと
   validates :created_at, presence: true
@@ -43,5 +44,12 @@ class Post < ApplicationRecord
  
   # 日付ごとの表示
   scope :created_n_days_ago, ->(n) { where(created_at: n.days.ago.all_day) }
+
+  # モデルのレコードの作成に合わせて、投稿者のフォロワーを取得し、それぞれに対して通知を作成
+  after_create do
+    user.followers.each do |follower|
+      notifications.create(user_id: follower.id)
+    end
+  end  
 
 end

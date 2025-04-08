@@ -40,7 +40,10 @@ Rails.application.routes.draw do
   get "get_month_data", to: "public/posts#get_month_data", as: "get_month_data"
   # 項目絞り込み一覧
   get "filter", to: "public/filters#filter", as: "filter"
-
+  # 通知
+  scope module: :public do
+    resources :notifications, only: [:update]
+  end
 
   # 管理者側
 
