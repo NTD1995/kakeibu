@@ -1,4 +1,4 @@
-# kakeibo_sns
+# kakeibu
 ## サイト概要
 ### サイトテーマ
  家計簿について情報交換できるSNS 
@@ -25,8 +25,9 @@
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
 - フレームワーク：Ruby on Rails
 - JSライブラリ：jQuery
-- IDE：Cloud9
+- IDE：Visual Studio Code
 ​
 ## 使用素材
 著作権を考慮し、架空のデータを扱う予定です。
 なお今後、実在するデータを利用する際には、事前に著作権保持者と契約を結んだ上で利用します。
+画像素材として「[いらすとや](https://www.irasutoya.com/)」を使用しています。
