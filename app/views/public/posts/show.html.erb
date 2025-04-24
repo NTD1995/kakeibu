@@ -10,33 +10,33 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>名前</th>
-            <th>日付</th>
-            <th>内容</th>
-            <th>収支区分</th>
-            <th>金額</th>
-            <th>項目</th>
-            <th>メモ</th>
-            <th>コメント数</th>
-            <th>いいね数</th>
+            <th style="width: 15%;">名前</th>
+            <th style="width: 15%;">日付</th>
+            <th style="width: 10%;">内容</th>
+            <th style="width: 10%;">収支区分</th>
+            <th style="width: 10%;">金額</th>
+            <th style="width: 10%;">項目</th>
+            <th style="width: 10%;">メモ</th>
+            <th style="width: 10%;">コメント数</th>
+            <th style="width: 10%;">いいね数</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>
+            <td class="name" style="word-break: break-word;">
               <%= link_to @post.user.name, user_path(@post.user) %>
             </td>
             <td><%= @post.created_at.strftime("%Y年%m月%d日") %></td>
-            <td><%= @post.content %></td>
+            <td class="content" style="word-break: break-word;"><%= @post.content %></td>
             <td>
               <%= @post.expense? ? "支出" : "収入" %>
             </td>
-            <td>
+            <td class="price" style="word-break: break-word;">
               <% price = @post.expense? ? -@post.price.to_i : @post.price.to_i %>
               <%= number_to_currency(price, delimiter: ",") %>
             </td>
             <td><%= @post.item.name %></td>
-            <td><%= @post.memo %></td>
+            <td class="memo" style="word-break: break-word; white-space: pre-wrap;"><%= @post.memo %></td>
             <td id="post-comments-counter">
               <%= render "public/post_comments/counter", post: @post %>
             </td>
