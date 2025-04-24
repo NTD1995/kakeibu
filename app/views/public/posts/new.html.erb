@@ -34,9 +34,13 @@
             <strong><%= f.label :category, "収支区分" %></strong>
           </div>
           <div class="col-lg-10">
-            <%= f.radio_button :category, :income, checked: @post.category == "income" %> 収入
-            <%= f.radio_button :category, :expense, checked: @post.category == "expense" %> 支出
-          </div>
+            <%= f.radio_button :category, :income, id: 'category_income' %>
+            <label for="category_income">収入</label>
+
+            <%= f.radio_button :category, :expense, id: 'category_expense' %>
+            <label for="category_expense">支出</label>
+
+          </div>          
         </div>
 
         <div class="form-group row">
@@ -53,7 +57,43 @@
             <strong><%= f.label :item_id, "項目" %></strong>
           </div>
           <div class="col-lg-10">
-            <%= f.select :item_id, options_from_collection_for_select(Item.all, :id, :name, @post.item_id),{}, class: "form-control", style: 'max-width: 200px;' %>
+            <select name="post[item_id]" id="post_item_id" class="form-control" style="max-width: 200px;">
+              <% Item.where(category: 'income').each do |item| %>
+                <option value="<%= item.id %>" data-category="income" <%= 'selected' if item.id == @post.item_id %>><%= item.name %></option>
+              <% end %>
+              <% Item.where(category: 'expense').each do |item| %>
+                <option value="<%= item.id %>" data-category="expense" <%= 'selected' if item.id == @post.item_id %>><%= item.name %></option>
+              <% end %>
+            </select>
+                
+            <%= javascript_tag do %>
+              document.addEventListener("DOMContentLoaded", function() {
+                const incomeRadio = document.getElementById("category_income"); //収入のラジオボタン
+                const expenseRadio = document.getElementById("category_expense"); //支出のラジオボタン
+                const itemSelect = document.getElementById("post_item_id"); //項目のプルダウン
+                //選択肢を切り替える
+                function updateItemOptions(category) {
+                  //各optionの表示、非表示を切り替え
+                  Array.from(itemSelect.options).forEach(option => {
+                    option.style.display = option.dataset.category === category ? "block" : "none";
+                  });
+                  //非表示なoptionが選択されていたら、最初の表示中optionに変更
+                  if (itemSelect.selectedOptions[0].style.display === "none") {
+                    const visibleOptions = Array.from(itemSelect.options).filter(opt => opt.style.display === "block");
+                    if (visibleOptions.length > 0) {
+                      itemSelect.value = visibleOptions[0].value;
+                    }
+                  }
+                }
+                //ラジオボタンが変更されたときに updateItemOptions() を呼び出して絞り込みを実行
+                incomeRadio.addEventListener("change", () => updateItemOptions("income"));
+                expenseRadio.addEventListener("change", () => updateItemOptions("expense"));
+
+                // 初期状態に応じて絞り込み実行
+                if (incomeRadio.checked) updateItemOptions("income");
+                if (expenseRadio.checked) updateItemOptions("expense");
+              });
+            <% end %>
           </div>
         </div>
 
@@ -76,3 +116,4 @@
     </div>
   </div>
 </div>
+

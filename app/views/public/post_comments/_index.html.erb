@@ -10,10 +10,10 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>ユーザー画像</th>
-            <th>名前</th>
-            <th>コメント</th>
-            <th>操作</th>
+            <th style="width: 15%;">ユーザー画像</th>
+            <th style="width: 15%;">名前</th>
+            <th style="width: 50%;">コメント</th>
+            <th style="width: 20%;">操作</th>
           </tr>
         </thead>
         <tbody>
@@ -26,8 +26,8 @@
                 <%= image_tag "no_image.jpg", class: "rounded-circle", width: 50, height: 50 %>
               <% end %>
             </td>
-            <td><%= link_to post_comment.user.name, user_path(post_comment.user) %></td>
-            <td><%= post_comment.comment %></td>
+            <td class="name" style="word-break: break-word;"><%= link_to post_comment.user.name, user_path(post_comment.user) %></td>
+            <td class="comment" style="word-break: break-word; white-space: pre-wrap;"><%= post_comment.comment %></td>
             <td>
               <% if post_comment.user == current_user %>
                 <%= link_to "削除する", post_post_comment_path(post, post_comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger", remote: true %>
