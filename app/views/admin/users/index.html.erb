@@ -10,13 +10,13 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>ユーザーID</th>
-            <th>ユーザー画像</th>
-            <th>名前</th>
-            <th>フォロー数</th>
-            <th>フォロワー数</th>
-            <th>操作</th>
-            <th>ユーザーステータス</th>
+            <th style="width: 12%;">ユーザーID</th>
+            <th style="width: 14%;">ユーザー画像</th>
+            <th style="width: 10%;">名前</th>
+            <th style="width: 12%;">フォロー数</th>
+            <th style="width: 14%;">フォロワー数</th>
+            <th style="width: 18%;">操作</th>
+            <th style="width: 20%;">ユーザーステータス</th>            
           </tr>
         </thead>
         <tbody>
@@ -30,7 +30,7 @@
                   <%= image_tag "no_image.jpg", width: 50, height: 50, class: 'rounded-circle' %>
                 <% end %>
               </td>
-              <td>
+              <td class="name" style="word-break: break-word;">
                 <%= link_to user.name, admin_user_path(user) %>
               </td>
               <td><%= link_to user.followeds.count, followeds_admin_user_path(user) %></td>
@@ -38,10 +38,21 @@
               <td>
                 <%= form_with(url: admin_user_relationships_path(user), method: :post) do |form| %>
                   <%= form.hidden_field :user_id, value: user.id %>
-                  <% followed_ids = user.followeds.pluck(:id) %>
-                  <%= form.select :followed_id, @users.where.not(id: user.id).where.not(id: followed_ids).map { |u| [u.name, u.id] }, prompt: "フォローするユーザーを選択", class: "form-control" %>
-                  <%= form.submit "フォローする", class: "btn btn-success" %>
-                <% end %>
+                  <% followed_ids = user.followeds.pluck(:id) %>         
+                  <% candidates = @users.where.not(id: user.id).where.not(id: followed_ids) %>
+                  <% if candidates.exists? %>
+                    <%= form.collection_radio_buttons :followed_id, 
+                          candidates, 
+                          :id, :name do |b| %>
+                      <div style="word-break: break-word;">
+                        <%= b.label { b.radio_button + b.text } %>
+                      </div>
+                    <% end %>       
+                    <%= form.submit "フォローする", class: "btn btn-success" %>
+                  <% else %>
+                    フォローできるユーザーはいません
+                  <% end %>  
+                <% end %>              
               </td>
               <% if user.is_active? %>
                 <td class="text-success" style="font-weight: bold;">有効</td>
