@@ -15,15 +15,15 @@ class Public::RelationshipsController < ApplicationController
     redirect_to  request.referer
   end
   
-  # フォロー一覧画面
+  # フォロワー一覧画面
   def followers
-    user = User.find(params[:user_id])
-    @users = user.followers.page(params[:page])
+    @user = User.find(params[:user_id])
+    @users = @user.followers.page(params[:page])
   end
   
-  # フォロワー一覧画面
+  # フォロー一覧画面
   def followeds
-    user = User.find(params[:user_id])
-    @users = user.followeds.page(params[:page])
+    @user = User.find(params[:user_id])
+    @users = @user.followeds.page(params[:page])
   end
 end

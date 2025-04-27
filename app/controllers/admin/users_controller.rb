@@ -89,13 +89,13 @@ class Admin::UsersController < ApplicationController
     end        
   end
 
-  # フォロー一覧画面
+  # フォロワー一覧画面
   def followers
     @user = User.find(params[:id])
     @users = @user.followers.page(params[:page])
   end
   
-  # フォロワー一覧画面
+  # フォロー一覧画面
   def followeds
     @user = User.find(params[:id])
     @users = @user.followeds.page(params[:page])
