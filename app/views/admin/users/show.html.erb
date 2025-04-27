@@ -361,8 +361,6 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            
-
             <th style="width: 8%;">投稿ID</th>
             <th style="width: 10%;">名前</th>
             <th style="width: 18%;">日付</th>
@@ -398,7 +396,7 @@
 
   <div class="row">
     <div class="col-lg-12 d-flex justify-content-center">
-      <%= paginate @posts, params: { sort_other: params[:sort_other], other_page: params[:other_page] }%>
+      <%= paginate @posts, :param_name => 'other_page' %>
     </div>
   </div>
 
