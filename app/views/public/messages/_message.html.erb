@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-lg-12">
+    <% if message.user_id == current_user.id %>
+      <!-- ログインユーザーのメッセージ -->           
+      <div class="chat-fukidashi" style="text-align: right;">
+        <div id="message-<%= message.id %>" class="message-item">
+          <strong><%= message.content %></strong>
+          <br>
+          <%= message.created_at.strftime('%Y/%m/%d %H:%M') %>
+          <br>
+          <%= link_to '削除', room_message_path(@room, message), method: :delete, remote: true, class: 'btn btn-danger btn-sm mb-3', data: { confirm: '本当に削除しますか？' } %>
+        </div> 
+      </div>
+    <% else %>
+      <!-- 他のユーザーのメッセージ -->
+      <div class="chat-fukidashi" style="text-align: left;">
+        <strong><%= message.content %></strong>
+        <br>
+        <%= message.created_at.strftime('%Y/%m/%d %H:%M') %>
+      </div>
+    <% end %>
+  </div>
+</div>

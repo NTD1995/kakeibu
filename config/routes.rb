@@ -22,8 +22,8 @@ Rails.application.routes.draw do
   end
     # ルームを作成、詳細
   resources :rooms, controller: "public/rooms", only: [:create, :show] do
-    # メッセージを作成      
-    resources :messages, controller: "public/messages", only: [:create]
+    # メッセージを作成、削除      
+    resources :messages, controller: "public/messages", only: [:create, :destroy]
   end  
   # 投稿
   scope module: :public do

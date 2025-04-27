@@ -21,71 +21,55 @@
 
   <hr>
 
-  <!-- ルームセクション -->
-  <div class="chat">
-    <div class="chats">
-      <% if @messages.present? %>
-        <div class="row">
-          <div class="col-lg-6">
-            <div style="text-align: left">
-              <% @entries.each do |e| %>
-                <% unless e.user == current_user %>
-                  <h4 class="e_user_name" style="word-break: break-word;"><strong><%= e.user.name %>さん</strong></h4>
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-          <div class="col-lg-6">  
-            <div style="text-align: right;">
-              <h4 class="current_user_name" style="word-break: break-word;"><strong><%= current_user.name %>さん</strong></h4>
-            </div>  
-          </div>  
-        </div>
-        <!-- メッセージセクション -->
-        <% @messages.each do |m| %>
-          <div class="row">
-            <div class="col-lg-12">
-              <% if m.user_id == current_user.id %>
-                <!-- ログインユーザーのメッセージ -->           
-                <div class="chat-fukidashi" style="text-align: right;">
-                  <strong><%= m.content %></strong>
-                  <br>
-                  <%= m.created_at.strftime('%Y/%m/%d %H:%M') %>
-                </div>
-              <% else %>
-                <!-- 他のユーザーのメッセージ -->
-                <div class="chat-fukidashi" style="text-align: left;">
-                  <strong><%= m.content %></strong>
-                  <br>
-                  <%= m.created_at.strftime('%Y/%m/%d %H:%M') %>
-                </div>
-              <% end %>
-            </div>
-          </div>
+  <!-- それぞれのユーザーの名前 -->
+  <div class="row">
+    <div class="col-lg-6">
+      <div style="text-align: left">
+        <% @entries.each do |e| %>
+          <% unless e.user == current_user %>
+            <h4 class="e_user_name" style="word-break: break-word;"><strong><%= e.user.name %>さん</strong></h4>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
-
-    <!-- エラーメッセージ表示 -->
-    <div class="row">
-      <div class="col-lg-12">
-        <div id="errors">
-        </div>
       </div>
     </div>
-
-    <!-- メッセージ投稿フォーム -->
+    <div class="col-lg-6">  
+      <div style="text-align: right;">
+        <h4 class="current_user_name" style="word-break: break-word;"><strong><%= current_user.name %>さん</strong></h4>
+      </div>  
+    </div>  
+  </div>
+    
+  <!-- メッセージ内容 -->
+  <div id="chats">
     <div class="row">
-      <div class="col-lg-12">
-        <div class="posts">
-          <%= form_with model: @message, url: room_messages_path(@room), local: false do |f| %>
-            <%= f.text_field :content, class: "form-control", placeholder: "140字以内でメッセージを入力してください" %>
-            <%= f.hidden_field :room_id, value: @room.id %>
-            <%= f.submit "新規メッセージ", class: "btn btn-success mt-3 mb-3" %>
+      <div class="col-lg-12">     
+        <% if @messages.present? %>
+          <% @messages.each do |message| %>
+            <%= render 'public/messages/message', message: message %>
           <% end %>
-        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>      
+
+  <!-- エラーメッセージ表示 -->
+  <div class="row">
+    <div class="col-lg-12">
+      <div id="errors">
       </div>
     </div>
   </div>
 
+  <!-- メッセージ投稿フォーム -->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="posts">
+        <%= form_with model: @message, url: room_messages_path(@room), local: false do |f| %>
+          <%= f.text_field :content, class: "form-control", placeholder: "140字以内でメッセージを入力してください" %>
+          <%= f.hidden_field :room_id, value: @room.id %>
+          <%= f.submit "新規メッセージ", class: "btn btn-success mt-3 mb-3" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
