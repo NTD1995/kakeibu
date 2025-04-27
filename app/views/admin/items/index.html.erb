@@ -17,41 +17,39 @@
         </div>
         <div class="form-group">
           <%= form.label :category, '収支区分', class: 'font-weight-bold' %>
-          <%= form.select :category, Item.categories.keys.map {|k| [I18n.t("enums.item.category.#{k}"), k]},{} ,{ class: 'form-control', style: 'width: 200px;' } %>
+          <%= form.select :category, Item.categories.keys.map { |k| [I18n.t("enums.item.category.#{k}"), k] }, {}, { class: 'form-control', style: 'width: 200px;' } %>
         </div>
         <%= form.submit '新規追加', class: 'btn btn-primary mt-1 mb-3' %>
       <% end %>
     </div>
   </div>
 
-  <%# 支出の項目リスト %>
+  <%# 項目リスト（収入・支出） %>
   <div class="row mb-5">
-    <div class="col-lg-6">
-      <h5><strong>支出項目</strong></h5>
-      <ul class="list-group">
-        <% @expense_items.each do |item| %>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            <%= item.id %> 
-            <%= item.name %>
-            <%= link_to '編集する', edit_admin_item_path(item.id), class: 'btn btn-success btn-sm' %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-
-    <%# 収入の項目リスト %>
     <div class="col-lg-6">
       <h5><strong>収入項目</strong></h5>
       <ul class="list-group">
         <% @income_items.each do |item| %>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            <%= item.id %>
-            <%= item.name %>
-            <%= link_to '編集する', edit_admin_item_path(item.id), class: 'btn btn-success btn-sm' %>  
+            <span><%= item.id %></span>
+            <span class="content" style="word-break: break-all; max-width: 150px;"><%= item.name %></span>
+            <%= link_to '編集する', edit_admin_item_path(item.id), { class: 'btn btn-success btn-sm', style: 'white-space: nowrap;' } %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="col-lg-6">
+      <h5><strong>支出項目</strong></h5>
+      <ul class="list-group">
+        <% @expense_items.each do |item| %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span><%= item.id %></span>
+            <span class="content" style="word-break: break-all; max-width: 150px;"><%= item.name %></span>
+            <%= link_to '編集する', edit_admin_item_path(item.id), { class: 'btn btn-success btn-sm', style: 'white-space: nowrap;' } %>
           </li>
         <% end %>
       </ul>
     </div>
   </div>
-
 </div>
