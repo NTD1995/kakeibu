@@ -12,11 +12,12 @@
         <table class="table table-bordered mt-3">
           <thead>
             <tr>
-              <th>メッセージID</th>
-              <th>ユーザーID</th>
-              <th>ユーザー名</th>
-              <th>メッセージ</th>
-              <th>操作</th>
+              <th style="width: 15%;">メッセージID</th>
+              <th style="width: 10%;">ユーザーID</th>
+              <th style="width: 20%;">ユーザー名</th>
+              <th style="width: 15%;">日時</th>
+              <th style="width: 30%;">メッセージ</th>
+              <th style="width: 10%;">操作</th>
             </tr>
           </thead>
           <tbody>
@@ -24,8 +25,9 @@
               <tr>
                 <td><%= message.id %></td>
                 <td><%= message.user.id %></td>
-                <td><%= message.user.name %></td>
-                <td><%= message.content %></td>
+                <td class="name" style="word-break: break-word;"><%= message.user.name %></td>
+                <td><%= message.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+                <td class="content" style="word-break: break-word;"><%= message.content %></td>
                 <td>
                   <%= link_to '削除する', admin_room_message_path(@room, message), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger btn-sm" %>
                 </td>
@@ -41,8 +43,8 @@
 
   <div class="row mt-3">
     <div class="col-lg-12 d-flex justify-content-center">
-      <%= link_to "ルーム一覧に戻る", admin_rooms_path, class: "btn btn-primary mr-2" %>
-      <%= link_to 'ルームを削除する', admin_room_path(@room), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %>
+      <%= link_to "ルーム一覧に戻る", admin_rooms_path, class: "btn btn-primary mr-2 mb-4" %>
+      <%= link_to 'ルームを削除する', admin_room_path(@room), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger mb-4" %>
     </div>
   </div>
 

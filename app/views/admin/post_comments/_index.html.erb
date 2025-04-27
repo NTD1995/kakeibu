@@ -10,11 +10,12 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>コメントID</th>
-            <th>ユーザー画像</th>
-            <th>名前</th>
-            <th>コメント</th>
-            <th>操作</th>
+            <th style="width: 15%;">コメントID</th>
+            <th style="width: 15%;">ユーザー画像</th>
+            <th style="width: 15%;">名前</th>
+            <th style="width: 15%;">日時</th>
+            <th style="width: 25%;">コメント</th>
+            <th style="width: 15%;">操作</th>            
           </tr>
         </thead>
         <tbody>
@@ -28,8 +29,9 @@
                 <%= image_tag "no_image.jpg", class: "rounded-circle", width: 100, height: 100 %>
               <% end %>
             </td>
-            <td><%= link_to post_comment.user.name, admin_user_path(post_comment.user) %></td>
-            <td><%= post_comment.comment %></td>
+            <td class="name" style="word-break: break-word;"><%= link_to post_comment.user.name, admin_user_path(post_comment.user) %></td>
+            <td><%= post_comment.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+            <td class="comment" style="word-break: break-word; white-space: pre-wrap;"><%= post_comment.comment %></td>
             <td>
               <%= link_to "削除する", admin_post_comment_path(post_comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
             </td>

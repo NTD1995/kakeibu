@@ -10,15 +10,15 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>いいねID</th>
-            <th>投稿ID</th>
-            <th>名前</th>
-            <th>日付</th>
-            <th>内容</th>
-            <th>金額</th>
-            <th>項目</th>
-            <th>コメント数</th>
-            <th>いいね数</th>
+            <th style="width: 10%;">いいねID</th>
+            <th style="width: 10%;">投稿ID</th>
+            <th style="width: 10%;">名前</th>
+            <th style="width: 15%;">日付</th>
+            <th style="width: 13%;">内容</th>
+            <th style="width: 10%;">金額</th>
+            <th style="width: 10%;">項目</th>
+            <th style="width: 12%;">コメント数</th>
+            <th style="width: 10%;">いいね数</th>            
           </tr>
         </thead>
         <tbody>
@@ -27,10 +27,10 @@
             <tr>
               <td><%= favorite.id %></td>
               <td><%= post.id %></td>
-              <td><%= link_to post.user.name, admin_user_path(post.user) %></td>
+              <td class="name" style="word-break: break-word;"><%= link_to post.user.name, admin_user_path(post.user) %></td>
               <td><%= post.created_at.strftime("%Y年%m月%d日") %></td>
-              <td><%= link_to post.content, admin_post_path(post) %></td>
-              <td>
+              <td class="content" style="word-break: break-word;"><%= link_to post.content, admin_post_path(post) %></td>
+              <td class="price" style="word-break: break-word;">
                 <% price = post.category == "expense" ? "-#{post.price}" : post.price %>
                 <%= number_to_currency(price, delimiter: ",") %>
               </td>

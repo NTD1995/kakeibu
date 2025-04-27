@@ -1,4 +1,4 @@
-$('.chats').append("<p style='text-align: right;'><%= @message.content %></p>");
+$('#chats').append("<%= j(render 'public/messages/message', message: @message) %>");
 $('input[type=text]').val("")
 $('#errors').html("")
 $('#flash-message').html("<%= j(render 'layouts/flash') %>")

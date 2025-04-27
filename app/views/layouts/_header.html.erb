@@ -73,7 +73,11 @@
 
               <%# 項目絞り込み検索フォーム %>
               <%= form_with(url: filter_path, method: :get, local: true, class: "d-flex align-items-center") do %>
-                <%= select_tag :item_id, options_from_collection_for_select(Item.all, :id, :name, params[:item_id]), include_blank: "すべて", class: "mr-2" %>
+                <%= select_tag :item_id,
+                      options_from_collection_for_select(Item.all, :id, :name, params[:item_id]),
+                      include_blank: "すべて",
+                      class: "mr-2",
+                      style: "white-space: normal; word-break: break-all; max-width: 200px;" %>
                 <%= button_tag type: "submit", class: "btn btn-light" do %>
                   <i class="fa-solid fa-filter"></i> 絞り込む
                 <% end %>               
@@ -123,10 +127,14 @@
 
               <%# 項目絞り込み検索フォーム %>
               <%= form_with(url: admin_filter_path, method: :get, local: true, class: "d-flex align-items-center") do %>
-                <%= select_tag :item_id, options_from_collection_for_select(Item.all, :id, :name, params[:item_id]), include_blank: "すべて", class: "mr-2" %>
+                <%= select_tag :item_id,
+                      options_from_collection_for_select(Item.all, :id, :name, params[:item_id]),
+                      include_blank: "すべて",
+                      class: "mr-2",
+                      style: "white-space: normal; word-break: break-all; max-width: 200px;" %>
                 <%= button_tag type: "submit", class: "btn btn-light" do %>
                   <i class="fa-solid fa-filter"></i> 絞り込む
-                <% end %>               
+                <% end %>
               <% end %>
             </div>
 
