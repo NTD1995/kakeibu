@@ -67,17 +67,17 @@
             </select>
                 
             <%= javascript_tag do %>
-              document.addEventListener("DOMContentLoaded", function() {
+              document.addEventListener("turbolinks:load", function() {
                 const incomeRadio = document.getElementById("category_income"); //収入のラジオボタン
                 const expenseRadio = document.getElementById("category_expense"); //支出のラジオボタン
                 const itemSelect = document.getElementById("post_item_id"); //項目のプルダウン
                 //選択肢を切り替える
                 function updateItemOptions(category) {
-                  //各optionの表示、非表示を切り替え
-                  Array.from(itemSelect.options).forEach(option => {
+                //各optionの表示、非表示を切り替え
+                Array.from(itemSelect.options).forEach(option => {
                     option.style.display = option.dataset.category === category ? "block" : "none";
                   });
-                  //非表示なoptionが選択されていたら、最初の表示中optionに変更
+                //現在選択されている項目が非表示であれば、表示されている最初の項目を選択する
                   if (itemSelect.selectedOptions[0].style.display === "none") {
                     const visibleOptions = Array.from(itemSelect.options).filter(opt => opt.style.display === "block");
                     if (visibleOptions.length > 0) {
@@ -85,13 +85,12 @@
                     }
                   }
                 }
-                //ラジオボタンが変更されたときに updateItemOptions() を呼び出して絞り込みを実行
-                incomeRadio.addEventListener("change", () => updateItemOptions("income"));
-                expenseRadio.addEventListener("change", () => updateItemOptions("expense"));
-
-                // 初期状態に応じて絞り込み実行
-                if (incomeRadio.checked) updateItemOptions("income");
-                if (expenseRadio.checked) updateItemOptions("expense");
+                // ページが読み込まれた際に、収入または支出のラジオボタンが選ばれていれば、それに対応する項目の表示を初期化
+                if (incomeRadio?.checked) updateItemOptions("income");
+                if (expenseRadio?.checked) updateItemOptions("expense");
+                //ラジオボタン収入または支出の選択が変更された際に、再度項目の表示/非表示を更新するイベントリスナーを設定
+                incomeRadio?.addEventListener("change", () => updateItemOptions("income"));
+                expenseRadio?.addEventListener("change", () => updateItemOptions("expense"));
               });
             <% end %>
           </div>
